@@ -1,5 +1,8 @@
 <html>
   <body>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    </style>
     <div id="app"></div>
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
@@ -8,6 +11,30 @@
     <script type="text/jsx">
       const app = document.getElementById('app');
       ReactDOM.render(<h1>Test 🚀</h1>, app);
+    </script>
+    <div>
+      <center>
+        <div id="cube" style="width:300px;height:350px"></div>
+        <br><br>
+        <table border=0>
+          <tr>
+            <td><button style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onclick="newCube(1)">Embaralhar</button></td>
+            <td width=20>
+            <td><button style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onclick="newCube(0)">Arrumar</button></td>
+          </tr>
+        </table>
+       </center>
+    </div>
+    <script src="/scripts/AnimCube3wca.js">
+      var params = "id=cube&buttonbar=1&yz=1&bgcolor=f0f0f0&edit=1&snap=0&move=R L&movetext=5&supercube=1&borderwidth=6&align=3&scale=1";
+      var rand = '&initmove=random';
+      AnimCube3(params);
+      function newCube(cmd) {
+        var src = params;
+        if (cmd == 1)
+          src += rand;
+        AnimCube3(src);
+      }
     </script>
   </body>
 </html>

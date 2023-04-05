@@ -201,6 +201,9 @@
                 <input type="radio" name="fonttype" checked="yes" onchange="replace_cube()"/>outlined
                 <input type="radio" name="fonttype" id="fonttypeoff" onchange="replace_cube()"/>no outline
                 <br>
+                textsize: 
+                <input type="number" id="textsize" style="width:40px;" step="1" min="5" max="40" value="12" onchange="replace_cube()"/>
+                <br>
                 scramble: 
                 <input type="number" id="scramble" style="width:30px;" step="1" min="0" max="2" value="0" onchange="replace_cube()"/>
                 <br>
@@ -324,6 +327,7 @@
       var metric = document.getElementById('metric').value;
       var counteroff = document.getElementById('conteroff');
       var fonttypeoff = document.getElementById('fonttypeoff');
+      var textsize = document.getElementById('textsize').value;
       var facelets = document.getElementById('facelets').value;
       var colorscheme = document.getElementById('colorscheme').value;
       var colorsdefault = document.getElementById('colorsdefault');
@@ -447,6 +451,8 @@
         params += '&counter=0';
       if (fonttypeoff.checked)
         params += '&fonttype=0';
+      if (textsize != '12')
+        params += '&textsize='+textsize;
       if (facelets != '' && facelets.length == parseInt(num,10)**2*6)
         params += '&facelets='+facelets;
       if (colorscheme != '' && colorscheme.length == 6)

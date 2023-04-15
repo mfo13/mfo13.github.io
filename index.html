@@ -57,7 +57,6 @@
       border-spacing: 0px;
     }
     .position {
-      table-layout: fixed;
       padding: 0px;
       border-collapse: 0px;
       border-spacing: 0px;
@@ -75,12 +74,12 @@
   <body>
     <center>
       <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJs Configuration Tool</h1>
-      <table>
+      <table width='800px'>
         <tr>
           <td>
             <div>
               <b>Cube:</b>
-              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="document.getElementById('faceletsdefault').checked = 'yes'; unfold_cube(); unfold_supercube(); replace_cube();">
+              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="document.getElementById('faceletsdefault').checked='yes'; document.getElementById('showcolorscheme').style.display='block'; unfold_cube(); unfold_supercube(); replace_cube();">
                 <option value="2">2x2x2</option>
                 <option value="3" selected>3x3x3</option>
                 <option value="4">4x4x4</option>
@@ -184,11 +183,11 @@
                 <br>
                 slidercolor:
                 <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" id="slidercolordefault" checked="yes" onchange="document.getElementById('slidercolor').style.display = document.getElementById('slidercolordefault').checked ? 'none' : 'inline'; replace_cube()"/>default
+                <input type="checkbox" id="slidercolordefault" checked="yes" onchange="document.getElementById('slidercolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
                 <br>
                 troughcolor:
                 <input type="color" id="troughcolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" name="troughcolordefault" id="troughcolordefault" checked="yes" onchange="document.getElementById('troughcolor').style.display = document.getElementById('troughcolordefault').checked ? 'none' : 'inline'; replace_cube()"/>default
+                <input type="checkbox" id="troughcolordefault" checked="yes" onchange="document.getElementById('troughcolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
                 <br>
                 clickprogress: 
                 <input type="radio" name="clickprogress" checked="yes" onchange="replace_cube()"/>on 
@@ -228,7 +227,7 @@
               <a href="javascript:void(0)" id='label:movesettings' onclick="reverse('movesettings');"><b>Move &#8631;</b></a>
               <div id="movesettings" style="display: none;">
                 <hr>
-                move:
+                move
                 <br> 
                 <textarea id="move" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
                 <br>
@@ -248,18 +247,24 @@
                 <input type="radio" name="sign" id="signon" onchange="document.getElementById('switchyz').checked=true; document.getElementById('movetext').value='5'; replace_cube()"/>on
                 <input type="radio" name="sign" checked="yes" onchange="replace_cube()"/>off 
                 <br>
-                initmove:
-                <br> 
-                <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');">initmove &#8631;</a>
                 <br>
-                initrevmove:
-                <br> 
-                <textarea id="initrevmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <div id='showinitmove' style='display: none;'> 
+                  <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
+                <a href="javascript:void(0)" id="label:showinitrevmove" onclick="reverse('showinitrevmove');">initrevmove &#8631;</a>
                 <br>
-                demo:
-                <br> 
-                <textarea id="demo" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <div id='showinitrevmove' style='display: none;'> 
+                  <textarea id="initrevmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
+                <a href="javascript:void(0)" id="label:showdemo" onclick="reverse('showdemo');">demo &#8631;</a>
                 <br>
+                <div id='showdemo' style='display: none;'> 
+                  <textarea id="demo" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
                 metric: 
                 <input type="number" id="metric" style="width:30px;" step="1" min="0" max="3" value="0" onchange="replace_cube()"/>
                 <br>
@@ -286,9 +291,9 @@
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
                 facelets:
-                <input id='faceletsdefault' type="checkbox" checked="yes" onchange="unfold_cube(); replace_cube();"/>default
+                <input id='faceletsdefault' type="checkbox" checked="yes" onchange="document.getElementById('showcolorscheme').style.display = this.checked ? 'block' : 'none'; unfold_cube(); replace_cube();"/>default
                 <br> 
-                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;" onchange="replace_cube()"></textarea>
+                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 <div id='setfacelets' style='display: none;'>
                   <br>
                   <table class='opencube'>
@@ -386,7 +391,7 @@
                         <td>
                         </td>
                         <td>
-                           Selection:&nbsp;<text id="slectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                           Selection:&nbsp;<text id="selectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
                         </td>
                       </tr>
                       <tr>
@@ -595,19 +600,8 @@
         params += borderwidth!='10' && (!supercubeon.checked && !gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
         params += borderwidth!='6' && (supercubeon.checked || gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
         params += move!='' ? '&move='+move : '';
-        if (movetextint > 0)
-          if ((movetextint > 1 && movetextint < 5) && (num == '3')) {
-             params += '&movetext='+movetext;
-             movetextalert.style.display = 'none';
-          }
-          else if (movetextint > 1 && movetextint < 5) 
-                 movetextalert.style.display = 'inline';
-               else {
-                 if (movetextint != 5 || !signon.checked) {  
-                   params += '&movetext='+movetext;
-                   movetextalert.style.display = 'none';
-                 }
-               } 
+        params += (movetextint>1 && movetextint<5 && num=='3') || (movetextint!=5 || !signon.checked) ? '&movetext='+movetext : '';
+        movetextalert.style.display = movetextint>1 && movetextint<5 && num!='3' ? 'block' : 'none';
         params += movetextspaceoff.checked ? '&movetextspace=0' : '';
         params += switchyz.checked && !signon.checked ? '&yz=1' : '';
         params += !switchyz.checked && signon.checked ? '&yz=0' : '';
@@ -619,19 +613,15 @@
         params += counteroff.checked ? '&counter=0' : '';
         params += fonttypeoff.checked ? '&fonttype=0' : '';
         params += textsize!='12' ? '&textsize='+textsize : '';
-        if (!faceletsdefault.checked) {
-          showcolorscheme.style.display = 'none';
-          params += '&facelets='+facelets;
-        } else {
-          showcolorscheme.style.display = 'inline';
-        }
+        params += faceletsdefault.checked ? '' : '&facelets='+facelets; 
         params += !colorschemedefault.checked && faceletsdefault.checked ? '&colorscheme='+colorscheme : '';
         if (!colorsdefault.checked) {
           colortable.style.display='block';
           for (var i=0; i<10; i++)
-            colors += document.getElementById('color'+i.toString()).value.replace("#","");
+            colors += document.getElementById('color'+i.toString()).value.replace('#','');
           params += '&colors='+colors;
-        } else {
+        } 
+        else {
           for (var i=0; i<10; i++) {
             document.getElementById('color'+i.toString()).value = document.getElementById('color'+i.toString()).getAttribute('data-default');
           }
@@ -683,7 +673,7 @@
         var idlabel = document.getElementById('label:'+nome);
         var texto = idlabel.innerHTML;
         if (id.style.display == 'none') {
-          id.style.display = 'inline';
+          id.style.display = 'block';
           texto = texto.replace('↷','↻');
           idlabel.innerHTML = texto;
         }
@@ -695,17 +685,17 @@
       }
 
       function unfold_cube() {
+        dotable();
         if (!document.getElementById('faceletsdefault').checked) {
           dopallet();
-          dotable();
           setfacelets();
           document.getElementById('setfacelets').style.display = 'block';
           document.getElementById('showpallet').style.display = 'block';
-          } else {
+        } else {
             document.getElementById('setfacelets').style.display = 'none';
             document.getElementById('showpallet').style.display = 'none';
             unfold_colorscheme();
-          }
+        }
       }
 
       function unfold_colorscheme() {
@@ -829,12 +819,12 @@
         var faces = ['SC_Uface','SC_Lface','SC_Fface','SC_Rface','SC_Bface','SC_Dface'];
         for (var f=0; f<6;f++) {
           tab = document.getElementById(faces[f]);
-          table = '<table class="opencube" style="table-layout: fixed;">\
+          table = '<table class="opencube">\
                 <tbody>';
           for (var i=1; i<=parseInt(num,10); i++) {
             table += '<tr>';
             for (var j=1; j<=parseInt(num,10); j++) {
-              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; width: '+(16*7/num).toString()+'px; text-align: center; background: grey;"><a href="javascript:void(0)" id="'+faces[f]+'lin'+i+'col'+j+'" data-face="0" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+i+'col'+j+'\'); replace_cube();">⇑</a></td>';
+              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; text-align: center; background: grey;"><a href="javascript:void(0)" id="'+faces[f]+'lin'+i+'col'+j+'" data-face="0" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+i+'col'+j+'\'); replace_cube();">&nbsp;⇑&nbsp;</a></td>';
             }
             table += '</tr>';
           }
@@ -847,7 +837,7 @@
       function changecolor(local) {
         var cell = document.getElementById(local);
         cell.style.background = document.getElementById('selectedcolor').style.background;
-        cell.setAttribute('data-face', document.getElementById('slectedindex').innerHTML);
+        cell.setAttribute('data-face', document.getElementById('selectedindex').innerHTML);
         if (!document.getElementById('faceletsdefault').checked)
           setfacelets();
         setcolorscheme();
@@ -855,7 +845,7 @@
 
       function changearrow(local) {
         var cell = document.getElementById(local);
-        var arrow = ['⇑', '⇒', '⇓', '⇐'];
+        var arrow = ['&nbsp;⇑&nbsp;', '⇒', '&nbsp;⇓&nbsp;', '⇐'];
         var num = parseInt(cell.getAttribute('data-face'),10);
         num = num < 3 ? num += 1 : 0;
         cell.setAttribute('data-face', num);
@@ -916,7 +906,7 @@
       }
 
       function selectcolor(index,color) {
-        document.getElementById('slectedindex').innerHTML = index;
+        document.getElementById('selectedindex').innerHTML = index;
         document.getElementById('selectedcolor').style.background = color;
       }
 
@@ -932,11 +922,11 @@
           for (var i=1; i<=parseInt(num,10); i++) {
             for (var j=1; j<=parseInt(num,10); j++) {
               index = document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).getAttribute('data-face');
-                document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).style.background = document.getElementById('pallet-'+index).style.background;
+              document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).style.background = document.getElementById('pallet-'+index).style.background;
             }
           }
         }
-        index = document.getElementById('slectedindex').innerHTML;
+        index = document.getElementById('selectedindex').innerHTML;
         document.getElementById('selectedcolor').style.background = document.getElementById('pallet-'+index).style.background;
       }
 

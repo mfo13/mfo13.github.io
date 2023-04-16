@@ -508,7 +508,7 @@
     <script>
       "use strict";
 
-      var removeListeners = [];
+      var acj_removeListeners = [];
       AnimCube3("id=cube");
 
       dopallet();
@@ -640,7 +640,7 @@
         params += scramble!='0' ? '&scramble='+scramble : '';
         params += randmoves!='0' ? '&randmoves='+randmoves : '';
 
-        removeListeners['cube']();
+        acj_removeListeners['cube']();
         switch (num) {
           case '2':
             AnimCube2("id=cube"+params);

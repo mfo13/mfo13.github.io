@@ -518,8 +518,7 @@
         var params='';
         var saida = '<b>HTML code:</b><br><br>'
         var movetextint = parseInt(getvalue('movetext'),10);
-        var colors = '';
-                
+                        
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
@@ -546,7 +545,7 @@
         params += getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson')) ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
-        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 || !checked('signon')) ? '&movetext='+getvalue('movetext') : '';
+        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon')) ? '&movetext='+getvalue('movetext') : '';
         setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         params += checked('switchyz') && !checked('signon') ? '&yz=1' : '';
@@ -562,9 +561,9 @@
         params += checked('faceletsdefault') ? '' : '&facelets='+getvalue('facelets'); 
         params += !checked('colorschemedefault') && checked('faceletsdefault') ? '&colorscheme='+getvalue('colorscheme') : '';
         if (!checked('colorsdefault')) {
+          params += '&colors='
           for (var i=0; i<10; i++)
-            colors += getvalue('color'+i.toString()).replace('#','');
-          params += '&colors='+colors;
+            params += getvalue('color'+i.toString()).replace('#','');
         } 
         params += checked('supercubeon') ? '&supercube=1' : '';
         params += checked('supercubeon') && getvalue('superfacelets')!='' ? '&superfacelets='+getvalue('superfacelets') : '';

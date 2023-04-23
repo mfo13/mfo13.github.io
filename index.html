@@ -522,6 +522,7 @@
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        console.log(params);
         params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += getvalue('butbgcolor')!=getvalue('bgcolor') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
@@ -632,7 +633,6 @@
         var faces = ['CS_Uface','CS_Lface','CS_Fface','CS_Rface','CS_Bface','CS_Dface'];
         var cores = [];
         var index = [];
-        var colorface = '';
         var esq =  ['w','g','o','b','r','y'];
         var colorscheme = getvalue('colorscheme');
         dopallet();
@@ -658,7 +658,6 @@
             }
           }
           for (var f=0; f<6;f++) {
-            colorface = document.getElementById(faces[f]);
             setbackground(faces[f], cores[f]);
             setattrib(faces[f], 'data-face', index[f]);
           }

@@ -1,13 +1,12 @@
 <div id="menuicon" class="container" onclick="navbar()">
   <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
-  </div>
-  <br/><br/>
-  <div id="menu" class="menu" style="display: none;">
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+</div>
+<br/><br/>
+<div id="menu" class="menu" style="display: none;">
     <text style="font-size: 25px;">Rubik\'s cube by logic</text>
     <br/><br/>
     <a class="menu" href="javascript: void()">Home</a>
     <br/><br/>
-  </div>
 </div>

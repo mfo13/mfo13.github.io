@@ -5,7 +5,7 @@
 </div>
 <br/><br/>
 <div id="menu" class="menu" style="display: none;">
-    <text style="font-size: 25px;">Rubik\'s cube by logic</text>
+    <text style="font-size: 25px;">Rubik's cube by logic</text>
     <br/><br/>
     <a class="menu" href="javascript: void()">Home</a>
     <br/><br/>

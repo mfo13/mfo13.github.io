@@ -6,6 +6,6 @@ function include(thing) {
       this.responseText;
     }
   };
-  xhttp.open("GET", thing, true);
+  xhttp.open("GET", thing+'.xml', true);
   xhttp.send();
 };

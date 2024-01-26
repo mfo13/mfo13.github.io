@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../../../sources/images/favicon.ico" type="image/x-icon">
     <title>AnimCubeJS Configuration Tool</title>
     <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     <meta name="description" content="User friendly configuration tool for AnimCubeJS">
@@ -235,8 +236,8 @@
                 <textarea id="move" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
                 <br>
                 movetext: 
-                <input type="number" id="movetext" style="width:40px;" step="1" min="0" max="5" value="0" onchange="replace_cube()"/>
-                <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>not supported for this cube size</text>
+                <input type="number" id="movetext" style="width:40px;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
+                <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
                 <br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
@@ -249,6 +250,10 @@
                 sign: 
                 <input type="radio" name="sign" id="signon" onchange="check('switchyz',true); setvalue('movetext', '5'); replace_cube()"/>on
                 <input type="radio" name="sign" checked onchange="replace_cube()"/>off 
+                <br>
+		wca: 
+                <input type="radio" name="wca" id="wcaon" onchange="check('switchyz',true); setvalue('movetext', '6'); replace_cube()"/>on
+                <input type="radio" name="wca" checked onchange="replace_cube()"/>off 
                 <br>
                 <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');"><u>initmove &#8631;</u></a>
                 <br>
@@ -546,12 +551,13 @@
         params += getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson')) ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
-        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon')) ? '&movetext='+getvalue('movetext') : '';
-        setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
+        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon')) ? '&movetext='+getvalue('movetext') : '';
+	setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
-        params += checked('switchyz') && !checked('signon') ? '&yz=1' : '';
-        params += !checked('switchyz') && checked('signon') ? '&yz=0' : '';
+        params += checked('switchyz') && !checked('signon') && !checked('wcaon') ? '&yz=1' : '';
+        params += !checked('switchyz') && (checked('signon') || checked('wcaon')) ? '&yz=0' : '';
         params += checked('signon') ? '&sign=1' : '';
+	params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
         params += getvalue('initrevmove')!='' ? '&initrevmove='+getvalue('initrevmove') : '';
         params += getvalue('demo')!='' ? '&demo='+getvalue('demo') : '';

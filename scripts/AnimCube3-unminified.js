@@ -6,6 +6,7 @@
 "use strict";
 
 function AnimCube3(params) {
+  var cubeDim = 3;
   // external configuration
   var config = [];
   // background colors
@@ -138,6 +139,7 @@ function AnimCube3(params) {
   var outlined = true;
   var snap = false;
   var signNotation;
+  var wcaNotation;
   var yzAlt;
   var superCube = false;
   var scrambleToggle = false;
@@ -145,6 +147,7 @@ function AnimCube3(params) {
   var randMoveCount = 0;
   var scw = 0;
   var borderWidth = 0;
+  var rotateAllowed = 1;
   // transformation tables for compatibility with Lars's applet
   // pos layout:
   //           25 26 27
@@ -168,10 +171,13 @@ function AnimCube3(params) {
 
   function onModuleLoad() {
     var fname = getParameter("config");
-    if (fname != null)
-      loadConfigFile(fname);
-    else {
+    if (fname == null)
       init();
+    else {
+      var p = location.pathname;
+      var f = p.substring(p.lastIndexOf('/')+1);
+      var pf = (f.length == 0) ? p + fname : p.replace(f, fname);
+      loadConfigFile(pf);
     }
   }
 
@@ -251,9 +257,10 @@ function AnimCube3(params) {
     // custom colors
     param = getParameter("colors");
     if (param != null) {
-      for (var i = 0; i < 10 && i < param.length / 6; i++) {
-        if (validateColor(param.substring(i * 6, i * 6 + 6)))
-          colors[i] = "#" + param.substring(i * 6, i * 6 + 6);
+      for (var i = 0, j = 0; i < 10 && j < param.length; i++, j+=6) {
+        var s = param.substr(j, 6);
+        if (s.length == 6 && validateColor(s))
+          colors[i] = "#" + s;
       }
     }
     // clean the cube
@@ -392,6 +399,14 @@ function AnimCube3(params) {
       if ("1" == param) {
         signNotation = true;
         moveText = 5;
+        yzAlt = true;
+      }
+    wcaNotation = false;
+    param = getParameter("wca");
+    if (param != null)
+      if ("1" == param) {
+        wcaNotation = true;
+        moveText = 6;
         yzAlt = true;
       }
     param = getParameter("yz");
@@ -580,7 +595,7 @@ function AnimCube3(params) {
       clickProgress = true;
     // displaying the textual representation of the move
     param = getParameter("movetext");
-    if (param >= 1 && param <= 5)
+    if (param >= 0 && param <= 6)
       moveText = parseInt(param);
     moveTextSpace = 1;
     param = getParameter("movetextspace");
@@ -751,6 +766,8 @@ function AnimCube3(params) {
   var modeChar = ['m', 't', 'c', 's', 'a'];
 
   function getMovePart(sequence, info, num) {
+    if (wcaNotation)
+      sequence = wca_to_sign(sequence);
     if (sequence.trim() == '#')
       if (typeof move[num] != 'undefined')
         return(move[num]);
@@ -827,6 +844,16 @@ function AnimCube3(params) {
     return mv;
   }
 
+  var faces = ['U', 'D', 'F', 'B', 'L', 'R'];
+
+  function wca_to_sign(s) {
+    for (var i=0; i < 6; i++) {
+      var r = new RegExp(faces[i] + 'w', "g");
+      s = s.replace(r, faces[i].toLowerCase());
+    }
+    return s;
+  }
+
   function moveTextFunc(move, start, end) {
     if (start >= move.length)
       return "";
@@ -872,10 +899,18 @@ function AnimCube3(params) {
       ["UD'", "DU'", "FB'", "BF'", "LR'", "RL'"],
       ["UD", "DU", "FB", "BF", "LR", "RL"]
     ],
-    [ // swapped Y and Z, lowercase rotation
+    [ // SiGN
       ["U", "D", "F", "B", "L", "R"],
       ["~E", "E", "S", "~S", "M", "~M"],
       ["u", "d", "f", "b", "l", "r"],
+      ["y", "~y", "z", "~z", "~x", "x"],
+      ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
+      ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
+    ],
+    [ // WCA 
+      ["U", "D", "F", "B", "L", "R"],
+      ["~E", "E", "S", "~S", "M", "~M"],
+      ["Uw", "Dw", "Fw", "Bw", "Lw", "Rw"],
       ["y", "~y", "z", "~z", "~x", "x"],
       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
       ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
@@ -1205,61 +1240,55 @@ function AnimCube3(params) {
     }
   }
 
-  var superTwistArr = [
-    [[0, 1 ,0], [0, 3, 1], [0, 3, 4], [0, 1, 5]], // F 
-    [[6, 1, 0], [2, 3, 1], [2, 3, 4], [6, 1, 5]], // B
-    [[3, 1, 0], [1, 3, 1], [1, 3, 4], [3, 1, 5]], // F or B slice
+  /* each superTwistArr element [a, b, c] is used to access a row or column
+     of 3 facelets in the cube layout (shown above) where:
+     a = starting facelet number
+     b = increment
+     c = layer (0=U, 1=D, 2=F, 3=B, 4=L, 5=R)
+  */
+
+  var superTwistArr = [                           // mode layer
+    [[0, 1 ,0], [0, 3, 1], [0, 3, 4], [0, 1, 5]], //  0     2 
+    [[6, 1, 0], [2, 3, 1], [2, 3, 4], [6, 1, 5]], //  0     3
+    [[3, 1, 0], [1, 3, 1], [1, 3, 4], [3, 1, 5]], //  1    2,3
+    [[6, 1, 3], [0, 1, 1], [0, 1, 2], [0, 3, 0]], //  0     4
+    [[0, 1, 3], [2, 3, 0], [6, 1, 2], [6, 1, 1]], //  0     5
+    [[3, 1, 3], [3, 1, 1], [3, 1, 2], [1, 3, 0]], //  1     4
+    [[3, 1, 3], [1, 3, 0], [3, 1, 2], [3, 1, 1]]  //  1     5
   ];
 
-  function twistSuperLayer(layer, num, middle) {
-    if (middle == false)
+  /* for F & B moves, rotate all arrows in the slice in the same direction
+     as the slice is rotated
+
+     for R & L moves, half-twist slice arrows on the back face and on the
+     face where the slice arrows from the back face moved to
+  */
+
+  function twistSuperLayer(layer, num, mode) {
+    if (mode == 0) { // outer
       for (var i = 0; i < 9; i++)
         scube[layer][i] = (scube[layer][i] + 4 - num) % 4;
-    if (layer == 4) {
-      if (middle == false) {
-        superTwist(6, 1, 3);
-        if (num == 1) superTwist(0, 1, 1);
-        else if (num == 2) superTwist(0, 1, 2);
-        else if (num == 3) superTwist(0, 3, 0);
-      }
-      if (middle == true) {
-        superTwist(3, 1, 3);
-        if (num == 1) superTwist(3, 1, 1);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(1, 3, 0);
-      }
+      if (layer == 2) superTwist2(0, 4 - num);
+      if (layer == 3) superTwist2(1, num);
+      if (layer == 4) superTwist(3, num);
+      if (layer == 5) superTwist(4, num);
     }
-    if (layer == 5) {
-      if (middle == false) {
-        superTwist(0, 1, 3);
-        if (num == 1) superTwist(2, 3, 0);
-        else if (num == 2) superTwist(6, 1, 2);
-        else if (num == 3) superTwist(6, 1, 1);
-      }
-      if (middle == true) {
-        superTwist(3, 1, 3);
-        if (num == 1) superTwist(1, 3, 0);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(3, 1, 1);
-      }
-    }
-    if (middle == false) {
-      if (layer == 2)
-        superTwist2(0, 4 - num);
-      if (layer == 3)
-        superTwist2(1, num);
-    }
-    if (middle == true) {
-      if (layer == 2)
-        superTwist2(2, 4 - num);
-      if (layer == 3)
-        superTwist2(2, num);
+    if (mode == 1) { // middle (m)
+      if (layer == 2) superTwist2(2, 4 - num);
+      if (layer == 3) superTwist2(2, num);
+      if (layer == 4) superTwist(5, num);
+      if (layer == 5) superTwist(6, num);
     }
   }
 
-  function superTwist(b, inc, face) {
-    for (var i = b, n = 0; n < 3; i += inc, n++)
-      scube[face][i] = (scube[face][i] + 2) % 4;
+  function superTwist(ix, num) {
+    superTwist1(superTwistArr[ix][0]);
+    superTwist1(superTwistArr[ix][num]);
+  }
+
+  function superTwist1(v) {
+    for (var i = v[0], n = 0; n < 3; i += v[1], n++)
+      scube[v[2]][i] = (scube[v[2]][i] + 2) % 4;
   }
 
   function superTwist2(ix, tw) {
@@ -1275,7 +1304,7 @@ function AnimCube3(params) {
   // last position of mouse (for dragging the cube)
   var lastX;
   var lastY;
-  // last position of mouse (when waiting for clear decission)
+  // last position of mouse (when waiting for clear decision)
   var lastDragX;
   var lastDragY;
   // drag areas
@@ -1348,14 +1377,9 @@ function AnimCube3(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
-      setClip(graphics, 0, 0, width, height - dpr);
-      graphics.fillRect(0, 0, width, height - dpr);
-    }
-    else {
-      setClip(graphics, 0, 0, width, height);
-      graphics.fillRect(0, 0, width, height);
-    }
+    var h = (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) ? height - dpr : height;
+    setClip(graphics, 0, 0, width, h);
+    graphics.fillRect(0, 0, width, h); // cube background
     dragAreas = 0;
     if (natural) // compact cube
     {
@@ -1538,7 +1562,7 @@ function AnimCube3(params) {
     if (hint) { // draw hint hidden facelets
       for (var i = 0; i < 6; i++) { // all faces
         vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), faceNormals[i]); // perspective correction
-        if (vProd(perspEye, faceNormals[i]) < 0) { // draw only hidden faces
+        if (vProd(perspEye, faceNormals[i]) < -(1-scale)) { // draw only hidden faces
           vScale(vCopy(tempNormal, faceNormals[i]), faceShift);
           var min = width < height ? width : height - progressHeight;
           var x = min / hintHoriz * vProd(tempNormal, eyeX);
@@ -1602,7 +1626,7 @@ function AnimCube3(params) {
     // draw all visible faces and get dragging regions
     for (var i = 0; i < 6; i++) { // all faces
       vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), faceNormals[i]); // perspective correction
-      if (vProd(perspEye, faceNormals[i]) > 0) { // draw only faces towards us
+      if (vProd(perspEye, faceNormals[i]) > -(1-scale)) { // draw only faces towards us
         var sideW = blocks[i][0][1] - blocks[i][0][0];
         var sideH = blocks[i][1][1] - blocks[i][1][0];
         if (sideW > 0 && sideH > 0) { // this side is not only black
@@ -1767,8 +1791,6 @@ function AnimCube3(params) {
 
   var buttonAction = [-1, 3, 1, -1, 0, 2, 4, -1];
 
-  var eyeD = [];
-
   // Various useful vector functions
 
   function vCopy(vector, srcVec) {
@@ -1860,18 +1882,18 @@ function AnimCube3(params) {
   }
 
   function validateColor(s) {
+    if (s.length != 6)
+      return false;
     var n = 0;
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 16; j++) {
-        if (s[i].toLowerCase() == "0123456789abcdef".charAt(j)) {
+        if (s.charAt(i).toLowerCase() == "0123456789abcdef".charAt(j)) {
           n++;
           break;
         }
       }
     }
-    if (n == 6)
-      return (true);
-    return (false);
+    return (n == 6) ? true : false;
   }
 
   function setClip(g, x, y, width, height) {
@@ -1930,16 +1952,16 @@ function AnimCube3(params) {
 
   var ds = []; // digits 1-9 scaled by dpr
 
-  function drawButton(g, i, x, y) { // rectangles and arrows a bit larger than the original
+  function drawButton(g, i, x, y) {
     x = Math.floor(x);
     y = Math.floor(y);
     switch (i) {
       case 0: // rewind
-        drawRect(g, x - ds[5], y - ds[5], ds[3], ds[5]*2.05);
-        drawArrow(g, x + ds[5], y, -1); // left
+        drawRect(g, x - ds[4], y - ds[3], ds[3], ds[6] + 1);
+        drawArrow(g, x + ds[4], y, -1); // left
         break;
       case 1: // reverse step
-        drawRect(g, x + ds[1], y - ds[5], ds[3], ds[5]*2.05);
+        drawRect(g, x + ds[1], y - ds[3], ds[3], ds[6] + 1);
         drawArrow(g, x - ds[1], y, -1); // left
         break;
       case 2: // reverse play
@@ -1947,22 +1969,22 @@ function AnimCube3(params) {
         break;
       case 3: // stop / mirror
         if (animating)
-          drawRect(g, x - ds[5], y - ds[5], ds[5]*2.05, ds[5]*2.05);
+          drawRect(g, x - ds[4], y - ds[3], ds[7], ds[7]);
         else {
-          drawRect(g, x - ds[9]/2, y - ds[7]/2, ds[8], ds[5]*1.5);
-          drawRect(g, x - ds[2], y - ds[5], ds[3], ds[5]*2.05);
+          drawRect(g, x - ds[4], y - ds[2], ds[7], ds[5]);
+          drawRect(g, x - ds[2], y - ds[4], ds[3], ds[9]);
         }
         break;
       case 4: // play
         drawArrow(g, x - ds[2], y, 1); // right
         break;
       case 5: // step
-        drawRect(g, x - ds[6], y - ds[5], ds[3], ds[5]*2.05);
-        drawArrow(g, x - ds[1]*1.5, y, 1); // right
+        drawRect(g, x - ds[4], y - ds[3], ds[3], ds[6] + 1);
+        drawArrow(g, x, y, 1); // right
         break;
       case 6: // fast forward
-        drawRect(g, x + ds[1], y - ds[5], ds[3], ds[5]*2.05);
-        drawArrow(g, x - ds[6], y, 1); // right
+        drawRect(g, x + ds[1], y - ds[3], ds[3], ds[6] + 1);
+        drawArrow(g, x - ds[4], y, 1); // right
         break;
       case 7: // prev sequence
         var c = (buttonPressed == 7) ? darker(buttonBgColor) : buttonBgColor;
@@ -1977,13 +1999,13 @@ function AnimCube3(params) {
     }
   }
 
-  function drawArrow(g, x, y, dir) { // arrows a bit larger than the original
-    var d3 = 4.5 * dpr;
+  function drawArrow(g, x, y, dir) {
+    var d3 = 3 * dpr;
     var fillX = [];
     var fillY = [];
     fillX[0] = x;
     fillX[1] = x + dir;
-    fillX[2] = x + 5 * dpr * dir;
+    fillX[2] = x + 4 * dpr * dir;
     fillX[3] = x + dir;
     fillX[4] = x;
     fillY[0] = y - d3;
@@ -2213,6 +2235,7 @@ function AnimCube3(params) {
         drawButtons = true;
       }
       if (innerLoopTop) {
+        var time0 = Date.now();
         innerLoopTop = false;
         if (moveDir < 0) {
           cont = false;
@@ -2334,7 +2357,7 @@ function AnimCube3(params) {
         if (jobNumber <= nowServing + 1)
           animating = false;
         drawButtons = true;
-        if (buttonPressed == 0)
+        if (buttonPressed == 0 || buttonPressed > 6)
           clear();
         paint();
         if (demo) {
@@ -2451,45 +2474,8 @@ function AnimCube3(params) {
     lastDragY = lastY = getY(e);
     toTwist = false;
     buttonPressed = selectButton(lastX, lastY);
-    if (buttonPressed >= 0) {
-      pushed = true;
-      if (buttonPressed == 3) {
-        if (!animating) // special feature
-          mirrored = !mirrored;
-        else
-          stopAnimation();
-      }
-      else if (buttonPressed == 0) { // clear everything to the initial setup
-        if (scramble > 0 && buttonBar == 2) {
-          if (scrambleToggle == true) {
-            scrambleToggle = false;
-            stopAnimation();
-            clear();
-          }
-          else {
-            scrambleToggle = true;
-            buttonPressed = 6;
-            startAnimation(buttonAction[buttonPressed]);
-          }
-        }
-        else {
-          stopAnimation();
-          clear();
-        }
-      }
-      else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
-        stopAnimation();
-        setTimeout(clear, 20);
-        if (buttonPressed == 7)
-          curMove = curMove > 0 ? curMove - 1 : move.length - 1;
-        else
-          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
-      }
-      else
-        startAnimation(buttonAction[buttonPressed]);
-      drawButtons = true;
-      paint();
-    }
+    if (buttonPressed >= 0)
+      button();
     else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY > height - progressHeight && lastY <= height) {
       if (clickProgress) {
         stopAnimation();
@@ -2508,6 +2494,46 @@ function AnimCube3(params) {
           toTwist = true;
       }
     }
+  }
+
+  function button() {
+    pushed = true;
+    if (buttonPressed == 3) {
+      if (!animating) // special feature
+        mirrored = !mirrored;
+      else
+        stopAnimation();
+    }
+    else if (buttonPressed == 0) { // clear everything to the initial setup
+      if (scramble > 0 && buttonBar == 2) {
+        if (scrambleToggle == true) {
+          scrambleToggle = false;
+          stopAnimation();
+          clear();
+        }
+        else {
+          scrambleToggle = true;
+          buttonPressed = 6;
+          startAnimation(buttonAction[buttonPressed]);
+        }
+      }
+      else {
+        stopAnimation();
+        clear();
+      }
+    }
+    else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
+      stopAnimation();
+      setTimeout(clear, 0);
+      if (buttonPressed == 7)
+        curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+      else
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+    }
+    else
+      startAnimation(buttonAction[buttonPressed]);
+    drawButtons = true;
+    paint();
   }
 
   function progress(jobNum) {
@@ -2592,12 +2618,14 @@ function AnimCube3(params) {
     dx = (x - lastX) / dpr;
     dy = (y - lastY) / dpr;
     if (!twisting || animating) { // whole cube rotation
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
-      vNorm(vMul(eyeX, eyeY, eye));
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
-      vNorm(vMul(eyeY, eye, eyeX));
-      lastX = x;
-      lastY = y;
+      if (rotateAllowed) {
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
+        vNorm(vMul(eyeX, eyeY, eye));
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
+        vNorm(vMul(eyeY, eye, eyeX));
+        lastX = x;
+        lastY = y;
+      }
     }
     else {
       if (natural)
@@ -2728,7 +2756,7 @@ function AnimCube3(params) {
     }
   }
 
-  function removeList() {
+  function removeListeners() {
     stopAnimation();
     document.removeEventListener('touchstart', mousedown);
     document.removeEventListener('touchmove', mousemove);
@@ -2739,7 +2767,7 @@ function AnimCube3(params) {
     document.removeEventListener('contextmenu', contextmenu);
     window.removeEventListener('resize', resize);
   }
-
+  
   function init0() {
     canvas = document.createElement('canvas');
     if (typeof params != 'undefined')
@@ -2758,8 +2786,6 @@ function AnimCube3(params) {
         parNode = thisScript.parentNode;
       }
     }
-    if (parNode.id != null && typeof removeListeners != 'undefined')
-      removeListeners[parNode.id] = removeList;
     for (var i = 0; i < 6; i++) {
       cube[i] = [];
       scube[i] = [];
@@ -2773,6 +2799,41 @@ function AnimCube3(params) {
     curMove = 0;
     originalAngle = 0;
     onModuleLoad();
+    if (parNode.id != null)
+      init_direct_access(parNode.id);
+  }
+
+  function init_direct_access(id) {
+    for (var s in window)
+      if (s.substr(0, 5) == 'acjs_') {
+        var g = eval(s);     // global
+        var l = s.substr(5); // local
+        if (Array.isArray(g)) {
+          if (exists(l))
+            g[id] = eval(l);
+          else
+            console.log(l + ' does not exist in animcube');
+        }
+        else
+          console.log(s + ' is not an array');
+      }
+  }
+  function get_var(v) {
+    if (exists(v))
+      return eval(v)
+    else
+      console.log(v + ' does not exist in animcube');
+  }
+  function put_var(v, val, type) {
+    if(exists(v)) {
+      if (type == 's')
+        eval(v + "='" + val + "'");
+      else if (type == 'n')
+        eval(v + '=' + Number(val));
+    }
+  }
+  function exists(s){
+    try {return typeof eval(s)} catch {return false}
   }
 
   init0();

@@ -183,7 +183,7 @@
               <div id="buttonbarsettings" style="display: none;">
                 <hr>
                 butbgcolor: 
-                <input type="color" id="butbgcolor" value=getvalue('bgcolor') style='display: none;' onchange="replace_cube()"/>
+                <input type="color" id="butbgcolor" value=getvalue('bgcolor'); style='display: none;' onchange="replace_cube()"/>
                 <input type='checkbox' checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setvalue('butbgcolor', getvalue('bgcolor')); replace_cube();" />default
                 <br>
                 slidercolor:

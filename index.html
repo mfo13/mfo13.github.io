@@ -170,8 +170,8 @@
                 <input type="number" id="perspective" style="width:50px;" step="1" min="0" max="999" value="2" onchange="replace_cube()"/>
                 <br>
                 borderwidth: 
-                <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="6" onchange="replace_cube()"/>
-		<input type='checkbox' checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+                <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
+		<input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); dopallet(); unfold_colorscheme(); updatecolor(); replace_cube()"/>on
@@ -481,7 +481,7 @@
                   <br>
                 </div>
                 gabbacolors: 
-                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); setvalue('borderwidth', '6'); replace_cube();"/>on
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
                 <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
                 <br>
               </div>
@@ -549,8 +549,8 @@
         params += getvalue('hintvert')!= '3.7' ? '&hintvert='+getvalue('hintvert') : '';
         params += checked('hintborderon') ? '&hintborder=1' : '';
         params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
-        params += getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
-        params += getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson')) ? '&borderwidth='+getvalue('borderwidth') : '';
+        params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
+        params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
         params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon')) ? '&movetext='+getvalue('movetext') : '';
 	setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');

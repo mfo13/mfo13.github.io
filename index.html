@@ -239,7 +239,6 @@
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
 		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-                <br>
                 <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
                 <br>
                 movetextspace: 
@@ -557,8 +556,8 @@
         params += !checked('movetextdefault') && (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon')) ? '&movetext='+getvalue('movetext') : '';
 	setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
-        params += checked('switchyz') && !checked('signon') && !checked('wcaon') ? '&yz=1' : '';
-        params += !checked('switchyz') && (checked('signon') || checked('wcaon')) ? '&yz=0' : '';
+        params += !checked('movetextdefault') && checked('switchyz') && !checked('signon') && !checked('wcaon') ? '&yz=1' : '';
+        params += !checked('movetextdefault') && !checked('switchyz') && (checked('signon') || checked('wcaon')) ? '&yz=0' : '';
         params += checked('signon') ? '&sign=1' : '';
 	params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';

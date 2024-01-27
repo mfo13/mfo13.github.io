@@ -532,7 +532,6 @@
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
-        console.log(params);
         params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
@@ -559,8 +558,8 @@
         params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon')) ? '&movetext='+getvalue('movetext') : '';
 	setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
-        params += checked('switchyz') && !checked('signon') && !checked('wcaon') ? '&yz=1' : '';
-        params += !checked('switchyz') && (checked('signon') || checked('wcaon')) ? '&yz=0' : '';
+        params += !checked('yzdefault') && checked('switchyz') && !checked('signon') && !checked('wcaon') ? '&yz=1' : '';
+        params += !checked('yzdefault') && !checked('switchyz') && (checked('signon') || checked('wcaon')) ? '&yz=0' : '';
         params += checked('signon') ? '&sign=1' : '';
 	params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';

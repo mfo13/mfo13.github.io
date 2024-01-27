@@ -184,7 +184,7 @@
                 <hr>
                 butbgcolor: 
                 <input type="color" id="butbgcolor" value=getvalue('bgcolor'); style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setvalue('butbgcolor', getvalue('bgcolor')); replace_cube();" />default
+                <input type='checkbox' id="butbgcolordefault" checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setvalue('butbgcolor', getvalue('bgcolor')); replace_cube();" />default
                 <br>
                 slidercolor:
                 <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
@@ -530,7 +530,7 @@
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
         console.log(params);
         params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
-        params += getvalue('butbgcolor')!=getvalue('bgcolor') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
+        params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
         params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
         params += checked('clickprogressoff') ? '&clickprogress=0' : '';

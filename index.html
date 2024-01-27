@@ -239,7 +239,8 @@
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
 		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-                <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		<br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
                 <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 

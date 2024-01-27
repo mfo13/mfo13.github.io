@@ -260,11 +260,11 @@
 		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
-                <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
+                <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); setvalue('movetext','5'); replace_cube()"/>on
                 <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
 		wca: 
-                <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
+                <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); setvalue('movetext','6'); replace_cube()"/>on
                 <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
                 <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');"><u>initmove &#8631;</u></a>

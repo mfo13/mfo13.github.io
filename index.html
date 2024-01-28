@@ -80,7 +80,7 @@
       text-align: center;
     }
   </style>
-  <body onunload="loginStateChanged=true;">
+  <body>
     <center>
       <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJS Configuration Tool</h1>
       <table width='800px'>
@@ -527,7 +527,6 @@
       "use strict";
 
       var acjs_removeListeners = [];
-      let loginStateChanged = false;
       AnimCube3("id=cube");
 
       dopallet();

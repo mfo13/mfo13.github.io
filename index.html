@@ -355,7 +355,7 @@
                 </div>
                 <div id='showcolorscheme'>
                   colorscheme:
-                  <input id='colorschemedefault' type="checkbox" checked onchange="unfold_colorscheme(); replace_cube();"/>default
+                  <input id='colorschemedefault' type="checkbox" checked onchange="setdisplay('faceletssettings', this.checked ? 'block' : 'none'); unfold_colorscheme(); replace_cube();"/>default
                   <br>
                   <input type="text" id="colorscheme" value='wyorgb' style="width:60px; display: none;"/>
                   <div id='setcolorscheme' style='display: none;'>

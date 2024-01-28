@@ -311,10 +311,12 @@
               <a href="javascript:void(0)" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Faces &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
-                facelets:
-                <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
-                <br> 
-                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+		<div id='faceletsshow'>
+                  facelets:
+                  <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
+                  <br>
+		  <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+	        </div>
                 <div id='setfacelets' style='display: none;'>
                   <br>
                   <table class='opencube'>
@@ -355,7 +357,7 @@
                 </div>
                 <div id='showcolorscheme'>
                   colorscheme:
-                  <input id='colorschemedefault' type="checkbox" checked onchange="setdisplay('faceletssettings', this.checked ? 'block' : 'none'); unfold_colorscheme(); replace_cube();"/>default
+                  <input id='colorschemedefault' type="checkbox" checked onchange="setdisplay('faceletsshow', this.checked ? 'block' : 'none'); unfold_colorscheme(); replace_cube();"/>default
                   <br>
                   <input type="text" id="colorscheme" value='wyorgb' style="width:60px; display: none;"/>
                   <div id='setcolorscheme' style='display: none;'>

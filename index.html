@@ -245,7 +245,8 @@
                 <textarea id="move" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
                 <br>
                 movetext: 
-                <input type="number" id="movetext" style="width:40px;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
+                <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
+		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
 		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
 		<br>
                 movetextspace: 
@@ -260,12 +261,12 @@
 		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
-                <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); setvalue('movetext','5'); replace_cube()"/>on
-                <input type="radio" name="sign" id="signoff" checked onchange="setvalue('movetext','0'); replace_cube()"/>off 
+                <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
+                <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
 		wca: 
-                <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); setvalue('movetext','6'); replace_cube()"/>on
-                <input type="radio" name="wca" id="wcaoff" checked onchange="setvalue('movetext','0'); replace_cube()"/>off 
+                <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
+                <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
                 <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');"><u>initmove &#8631;</u></a>
                 <br>
@@ -563,7 +564,7 @@
         params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
-        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon')) ? '&movetext='+getvalue('movetext') : '';
+        params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
 	setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';

@@ -1115,7 +1115,7 @@ function AnimCube3(params) {
     [[0, 3], [2, 3]],
     [[2, 3], [0, 3]]
   ];
-  // subcube dimmensions for middle layers
+  // subcube dimensions for middle layers
   var midBlockTable = [
     [[0, 0], [0, 0]],
     [[0, 3], [1, 2]],
@@ -1582,12 +1582,14 @@ function AnimCube3(params) {
                   fillY[j] = Math.floor(fillY[j] - y);
                 }
                 if (superCube == true) {
+		  /* commenting out the code that draws the facelet background
                   fillPolygon(graphics, fillX, fillY, "#fdfdfd");
                   if (hintBorder)
                     drawPolygon(graphics, fillX, fillY, darker("#fdfdfd"));
                   else
                     drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
+                  */
+		  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
                 }
                 else {
                   fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);

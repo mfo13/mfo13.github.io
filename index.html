@@ -450,7 +450,10 @@
                   <br>
                   <br>
                 </div>
-                <div id="supercubestuff" style="display: none;">
+		<div id="supercubestuff" style="display: none;">
+		  scw: 
+                  <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
+		  <br>
                   superfacelets:
                   <input id='superfaceletsdefault' type="checkbox" checked onchange="unfold_supercube(); replace_cube();"/>default
                   <br>
@@ -492,10 +495,7 @@
                     </table>
                     <br>
                   </div>
-		  scw: 
-                  <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
-		  <br>
-                </div>
+		</div>
                 gabbacolors: 
                 <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
                 <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 

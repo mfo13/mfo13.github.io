@@ -181,7 +181,7 @@
                 <br>
                 borderwidth: 
                 <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
-		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		<input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
@@ -248,25 +248,25 @@
                 <br>
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
-		            <input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-		            <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
-		            <br>
+		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		<br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
                 <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 
                 <br>
                 yz:
-		            <div id='yzoptions' style='display:none;'>
+		<div id='yzoptions' style='display:none;'>
                   <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
                   <input type="radio" name="yz" checked onchange="replace_cube()"/>off
                 </div>
-		            <input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
                 <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
                 <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
-		            wca: 
+		wca: 
                 <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
                 <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
@@ -313,11 +313,11 @@
               <a href="javascript:void(0)" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Faces &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
-		            <div id='faceletsshow'>
+		<div id='faceletsshow'>
                   facelets:
                   <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
                   <br>
-		              <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+		  <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 </div>
                 <div id='setfacelets' style='display: none;'>
                   <br>
@@ -497,8 +497,8 @@
                   </div>
                 </div>
                 gabbacolors: 
-                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
-                <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="unfold_cube(); dopallet(); updatecolor(); replace_cube();"/>on
+                <input type="radio" name="gabbacolors" checked onchange="unfold_cube(); dopallet(); updatecolor(); replace_cube();"/>off 
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
@@ -643,7 +643,7 @@
         //dotable();
         if (!checked('faceletsdefault')) {
           //dopallet();
-	        dotable();
+	  dotable();
           setfacelets();
           setdisplay('setfacelets', 'block');
           setdisplay('showpallet', 'block');

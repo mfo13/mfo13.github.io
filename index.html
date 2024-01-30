@@ -552,7 +552,7 @@
         params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
         params += checked('clickprogressoff') ? '&clickprogress=0' : '';
         params += checked('snapon') ? '&snap=1' : '';
-        params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')='1' && getvalue('move')='' && getvalue('scramble')='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
+        params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')=='1' && getvalue('move')=='' && getvalue('scramble')=='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
         params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
         params += checked('repeatoff') ? '&repeat=0' : '';
         params += checked('editoff') ? '&edit=0' : '';

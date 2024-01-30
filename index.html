@@ -515,11 +515,12 @@
                 <br>
                 &lt;script src="AnimCube3.js">&lt;/script><br>
                 <br>
-                &lt;div id="cube" style="width:400px;height:400px;">&lt;/div><br>
+                &lt;div style="width:400px;height:400px;">
                 <br>
                 &lt;script><br>
-                AnimCube3("id=cube");<br>
-                &lt;/script>
+                AnimCube3();<br>
+                &lt;/script><br>
+		&lt;/div>
             </div>
           </td>
         </tr>
@@ -618,14 +619,18 @@
             AnimCube7("id=cube"+params);
             break;
         }
-
+	if (!params=='') {
+		params = params.replace('&','');
+		params = '"'+params+'"';
+	}
         sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
-                  &lt;div id="cube" style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;">&lt;/div><br>\
+                  &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;">
                   <br>\
                   &lt;script><br>\
-                  AnimCube'+getvalue('cubesize')+'("id=cube'+params+'");<br>\
-                  &lt;/script>');
+                  AnimCube'+getvalue('cubesize')+'('+params+');<br>\
+                  &lt;/script>;<br>\
+		  &lt;/div>');
       }
       
       function reverse(nome) {

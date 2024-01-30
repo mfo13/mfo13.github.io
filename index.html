@@ -110,11 +110,11 @@
                 <br>
                 bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
+                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
                 <br>
                 cubecolor:  
                 <input type="color" id="cubecolor" value="#000000" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', '#000000'); replace_cube()"/>default
+                <input type='checkbox' id="cubecolordefault" checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', '#000000'); replace_cube()"/>default
                 <br>
                 snap: 
                 <input type="radio" name="snap" id="snapon" onchange="replace_cube()"/>on 

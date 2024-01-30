@@ -620,13 +620,12 @@
         }
 	if (!params=='') {
 		params = params.replace('&','');
-		params = '"'+params+'"';
 	}
         sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
-                  AnimCube'+getvalue('cubesize')+'("'+params+'");<br>\
+                  AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }

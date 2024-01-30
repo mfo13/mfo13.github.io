@@ -497,8 +497,8 @@
                   </div>
                 </div>
                 gabbacolors: 
-                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); !checked('faceletsdefault') ? updatecolor(); replace_cube();"/>on
-                <input type="radio" name="gabbacolors" checked onchange="dopallet(); !checked('faceletsdefault') ? updatecolor(); replace_cube();"/>off 
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
+                <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
@@ -853,13 +853,15 @@
           //update colorscheme faces
           index = getattrib('CS_'+faces[f], 'data-face');
           setbackground('CS_'+faces[f], getbackground('pallet-'+index));
-          //update facelets
-          for (var i=1; i<=parseInt(num,10); i++) {
-            for (var j=1; j<=parseInt(num,10); j++) {
-              index = getattrib(faces[f]+'lin'+i.toString()+'col'+j.toString(), 'data-face');
-              setbackground(faces[f]+'lin'+i.toString()+'col'+j.toString(), getbackground('pallet-'+index));
+          //update facelets if faceletsdefault is not set
+	  if (!checked('faceletsdefault')) {
+            for (var i=1; i<=parseInt(num,10); i++) {
+              for (var j=1; j<=parseInt(num,10); j++) {
+                index = getattrib(faces[f]+'lin'+i.toString()+'col'+j.toString(), 'data-face');
+                setbackground(faces[f]+'lin'+i.toString()+'col'+j.toString(), getbackground('pallet-'+index));
+              }
             }
-          }
+	  }
         }
         setbackground('selectedcolor', getbackground('pallet-'+gethtml('selectedindex')));
       }

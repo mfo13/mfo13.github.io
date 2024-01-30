@@ -517,9 +517,9 @@
 		<br>
                 &lt;div style="width:400px;height:400px;"><br>
                 &lt;script><br>
-                AnimCube3();<br>
+                AnimCube3("")<br>
                 &lt;/script><br>
-		&lt;/div>
+		&lt;/div><br>
             </div>
           </td>
         </tr>
@@ -626,9 +626,9 @@
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
-                  AnimCube'+getvalue('cubesize')+'('+params+');<br>\
-                  &lt;/script>;<br>\
-		  &lt;/div>');
+                  AnimCube'+getvalue('cubesize')+'("'+params+'");<br>\
+                  &lt;/script><br>\
+		  &lt;/div><br>');
       }
       
       function reverse(nome) {

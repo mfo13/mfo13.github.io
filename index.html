@@ -209,12 +209,12 @@
                 <input type="radio" name="clickprogress" id="clickprogressoff" onchange="replace_cube()"/>off
                 <br>
                 buttonbar: 
-                <select id="buttonbar" onchange="replace_cube()">
-                  <option value="default" selected>default</option>
+                <select id="buttonbar" style="display: none;" onchange="replace_cube()">
                   <option value="0">0</option>
-                  <option value="1">1</option>
+                  <option value="1" seleected>1</option>
                   <option value="2">2</option>
                 </select>
+		<input type="checkbox" id="buttonbardefault" checked onchange="setdisplay('buttonbar', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 buttonheight: 
                 <input type="number" id="buttonheight" style="width:40px;" step="1" min="9" max="25" value="13" onchange="replace_cube()"/>
@@ -552,7 +552,7 @@
         params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
         params += checked('clickprogressoff') ? '&clickprogress=0' : '';
         params += checked('snapon') ? '&snap=1' : '';
-        params += getvalue('buttonbar')!='default' ? '&buttonbar='+getvalue('buttonbar') : '';
+        params += !checked('buttonbardefault') && getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0') ? '&buttonbar='+getvalue('buttonbar') : '';
         params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
         params += checked('repeatoff') ? '&repeat=0' : '';
         params += checked('editoff') ? '&edit=0' : '';

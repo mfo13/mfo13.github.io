@@ -24,6 +24,7 @@
     <!-- -->
 	  
   </head>
+
   <style>
     @import url(https://fonts.googleapis.com/css?family=Open+Sans);
     table, td {
@@ -80,6 +81,7 @@
       text-align: center;
     }
   </style>
+
   <body>
     <center>
       <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJS Configuration Tool</h1>
@@ -179,12 +181,12 @@
                 <br>
                 borderwidth: 
                 <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
-		<input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
                 <input type="radio" name="supercube" checked onchange="setdisplay('supercubestuff', 'none'); replace_cube();"/>off
-                <br> 
+                <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
               <a href="javascript:void(0)" id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>
@@ -246,25 +248,25 @@
                 <br>
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
-		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
-		<br>
+		            <input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		            <br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
                 <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 
                 <br>
                 yz:
-		<div id='yzoptions' style='display:none;'>
+		            <div id='yzoptions' style='display:none;'>
                   <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
                   <input type="radio" name="yz" checked onchange="replace_cube()"/>off
-		</div>
-		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+                </div>
+		            <input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
                 <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
                 <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
-		wca: 
+		            wca: 
                 <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
                 <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
@@ -311,12 +313,12 @@
               <a href="javascript:void(0)" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Faces &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
-		<div id='faceletsshow'>
+		            <div id='faceletsshow'>
                   facelets:
                   <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
                   <br>
-		  <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
-	        </div>
+		              <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+                </div>
                 <div id='setfacelets' style='display: none;'>
                   <br>
                   <table class='opencube'>
@@ -454,45 +456,45 @@
                   <br>
                   <textarea id="superfacelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                   <div id='setsuperfacelets' style='display: none;'>
-                  <br>
-                  <table class='opencube' style="border-spacing: 5px;">
-                    <tbody>
-                      <tr>
-                        <td>
-                        </td>
-                        <td id='SC_Uface' class='opencube'>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td id='SC_Lface' class='opencube'>
-                        </td>
-                        <td id='SC_Fface' class='opencube'>
-                        </td>
-                        <td id='SC_Rface' class='opencube'>
-                        </td>
-                        <td id='SC_Bface' class='opencube'>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                        </td>
-                        <td id='SC_Dface' class='opencube'>
-                        </td>
-                        <td colspan="2" style="vertical-align: middle;">
-                          Click on arrows to turn them.
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <br>
-		  </div>
-                  scw: 
-                  <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
-                  <br>
+                    <br>
+                    <table class='opencube' style="border-spacing: 5px;">
+                      <tbody>
+                        <tr>
+                          <td>
+                          </td>
+                          <td id='SC_Uface' class='opencube'>
+                          </td>
+                          <td>
+                          </td>
+                          <td>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td id='SC_Lface' class='opencube'>
+                          </td>
+                          <td id='SC_Fface' class='opencube'>
+                          </td>
+                          <td id='SC_Rface' class='opencube'>
+                          </td>
+                          <td id='SC_Bface' class='opencube'>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                          </td>
+                          <td id='SC_Dface' class='opencube'>
+                          </td>
+                          <td colspan="2" style="vertical-align: middle;">
+                            Click on arrows to turn them.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br>
+                    scw: 
+                    <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
+                    <br>
+                  </div>
                 </div>
                 gabbacolors: 
                 <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
@@ -500,7 +502,7 @@
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
-	      <input type="button" value="Refresh page" onclick="location.reload(true);" /> 
+              <input type="button" value="Refresh page" onclick="location.reload(true);" />
             </div>
           </td>
           <td>
@@ -526,6 +528,7 @@
         </tr>
       </table>
     </center>
+
     <script>
       "use strict";
 
@@ -567,12 +570,12 @@
         params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
         params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
-	setdisplay('movetextalert', !checked('movetextdefault') && movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
+        setdisplay('movetextalert', !checked('movetextdefault') && movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
         params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
         params += checked('signon') ? '&sign=1' : '';
-	params += checked('wcaon') ? '&wca=1' : '';
+        params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
         params += getvalue('initrevmove')!='' ? '&initrevmove='+getvalue('initrevmove') : '';
         params += getvalue('demo')!='' ? '&demo='+getvalue('demo') : '';
@@ -640,7 +643,7 @@
         //dotable();
         if (!checked('faceletsdefault')) {
           //dopallet();
-	  dotable();
+	        dotable();
           setfacelets();
           setdisplay('setfacelets', 'block');
           setdisplay('showpallet', 'block');

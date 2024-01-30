@@ -497,8 +497,8 @@
                   </div>
                 </div>
                 gabbacolors: 
-                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="unfold_cube(); unfold_supercube(); dopallet(); updatecolor(); replace_cube();"/>on
-                <input type="radio" name="gabbacolors" checked onchange="unfold_cube(); unfold_supercube(); dopallet(); updatecolor(); replace_cube();"/>off 
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); !checked('faceletsdefault') ? updatecolor(); replace_cube();"/>on
+                <input type="radio" name="gabbacolors" checked onchange="dopallet(); !checked('faceletsdefault') ? updatecolor(); replace_cube();"/>off 
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">

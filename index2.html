@@ -510,11 +510,13 @@
               <div id="cube" style="width:400px;height:400px"></div>
             </center>
             <br>
-	    <div class="w3-bar w3-black">
-  	      <button class="w3-bar-item w3-button" onclick="openTab('htmlcode')"><b>HTML code</b></button>
-  	      <button class="w3-bar-item w3-button" onclick="openTab('animcubetxt')"><b>AnimCube.txt</b></button>
+	    <div class="w3-border">
+	      <div class="w3-bar w3-border-bottom w3-light-grey intronav">
+		<a class="w3-bar-item w3-button tabbtn w3-dark-grey" onclick="openTab(event, 'London')">HTML code</a>
+		<a class="w3-bar-item w3-button tabbtn" onclick="openTab(event, 'Paris')">AnimCube.txt</a>
+	      </div>
 	    </div>
-	    <div id="htmlcode" class="tabs">
+	    <div id="htmlcode" class="w3-container tabs w3-animate-opacity">
               <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
                 &lt;script src="AnimCube3.js">&lt;/script><br>
 		<br>
@@ -525,7 +527,7 @@
 		&lt;/div><br>
 	      </div>
             </div>
-	    <div id="animcubetxt" class="tabs" style="display:none;">
+	    <div id="animcubetxt" class="w3-container tabs w3-animate-opacity" style="display:none;">
 	      <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
 		&nbsp;<br>
 		&nbsp;<br>
@@ -550,9 +552,8 @@
 
       function replace_cube() {
         var params='';
-        var saida = '<b>HTML code:</b><br><br>'
         var movetextint = parseInt(getvalue('movetext'),10);
-	                        
+	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
@@ -631,7 +632,7 @@
 	if (!params=='') {
 		params = params.replace('&','');
 	}
-	sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
+	sethtml('texto', '&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
@@ -639,7 +640,7 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
 	 let configtext = params.replace(/&/g,"<br>");
-	 sethtml('configtext', '<b>Config file</b><br><br>'+configtext);         
+	 sethtml('configtext', configtext);         
       }
               
       function reverse(nome) {
@@ -1028,13 +1029,19 @@
       function setattrib(id, attrib, value) {
          document.getElementById(id).setAttribute(attrib, value);
       }
-      function openTab(tabname) {
+      
+      function openTab(evt, tabname) {
   	var i;
   	var x = document.getElementsByClassName("tabs");
   	for (i = 0; i < x.length; i++) {
-    		x[i].style.display = "none";
+     		x[i].style.display = "none";
+  	}
+  	var activebtn = document.getElementsByClassName("tabbtn");
+  	for (i = 0; i < x.length; i++) {
+    		activebtn[i].className = activebtn[i].className.replace(" w3-dark-grey", "");
   	}
   	document.getElementById(tabname).style.display = "block";
+  	evt.currentTarget.className += " w3-dark-grey";
       }
     </script>
   </body>

@@ -528,7 +528,6 @@
                 AnimCube3("")<br>
                 &lt;/script><br>
 		&lt;/div><br>
-		<br>
 	      </div>
             </div>
 	    <div id="animcubetxt" class="tabs" style="display:none;">
@@ -636,7 +635,7 @@
 	let configtext = '&nbsp;<br>&nbsp;<br>';
 	if (!params=='' || getvalue('configfilename')!='') {
 		configtext = params.replace(/&/g,"<br>");
-		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext+'<br>';
+		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
 		params = getvalue('configfilename')!='' ? '&config='+getvalue('configfilename')+params : params;
 		params = params.replace('&','');
 	}
@@ -646,7 +645,7 @@
                   &lt;script><br>\
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
-		  &lt;/div><br><br>');
+		  &lt;/div><br>');
 	sethtml('configtext', configtext);         
       }
               

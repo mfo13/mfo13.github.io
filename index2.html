@@ -621,8 +621,7 @@
 	if (!params=='') {
 		params = params.replace('&','');
 	}
-	var separado = params.split("&");
-        sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
+	sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
@@ -630,7 +629,7 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }
-      separado.forEach(mostra);
+      params.split("&").forEach(mostra);
       function mostra(item){
 	      console.lot(item);
       }

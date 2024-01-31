@@ -510,9 +510,12 @@
               <div id="cube" style="width:400px;height:400px"></div>
             </center>
             <br>
-            <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-                <b>HTML code:</b><br>
-                <br>
+	    <div class="w3-bar w3-black">
+  	      <button class="w3-bar-item w3-button" onclick="openTab('htmlcode')">HTML code</button>
+  	      <button class="w3-bar-item w3-button" onclick="openTab('animcubetxt')">AnimCube.txt</button>
+	    </div>
+	    <div id="htmlcode" class="tabs">
+              <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
                 &lt;script src="AnimCube3.js">&lt;/script><br>
 		<br>
                 &lt;div style="width:400px;height:400px;"><br>
@@ -520,12 +523,13 @@
                 AnimCube3("")<br>
                 &lt;/script><br>
 		&lt;/div><br>
+	      </div>
             </div>
-	    <br>
-            <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-                <b>Config file</b><br>
-                <br>
-             </div>
+	    <div id="animcubetxt" class="tabs" style="display:none;">
+	      <h2>AnimCube.txt</h2>
+	      <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+ 	      </div>
+            </div>
           </td>
         </tr>
         <tr>
@@ -1022,7 +1026,15 @@
 
       function setattrib(id, attrib, value) {
          document.getElementById(id).setAttribute(attrib, value);
-      } 
+      }
+      function openTab(tabname) {
+  	var i;
+  	var x = document.getElementsByClassName("tabs");
+  	for (i = 0; i < x.length; i++) {
+    		x[i].style.display = "none";
+  	}
+  	document.getElementById(tabname).style.display = "block";
+      }
     </script>
   </body>
 </html>

@@ -542,8 +542,7 @@
         var params='';
         var saida = '<b>HTML code:</b><br><br>'
         var movetextint = parseInt(getvalue('movetext'),10);
-	var separado =[];
-                        
+	                        
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
         params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
@@ -630,7 +629,7 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }
-      separado = params.split("&");
+      let separado = params.split("&");
       separado.forEach(mostra);
       function mostra(item){
 	      console.log(item);

@@ -634,6 +634,7 @@
 	let configtext = '&nbsp;<br>&nbsp;<br>';
 	if (!params=='' || getvalue('configfilename')!='') {
 		configtext = params.replace(/&/g,"<br>");
+		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
 		params = getvalue('configfilename')!='' ? '&config='+getvalue('configfilename')+params : params;
 		params = params.replace('&','');
 	}

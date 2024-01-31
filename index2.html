@@ -633,9 +633,9 @@
         }
 	let configtext = '&nbsp;<br>&nbsp;<br>';
 	if (!params=='' || getvalue('configfilename')!='') {
-		params = params.replace('&','');
 		configtext = params.replace(/&/g,"<br>");
-		params = getvalue('configfilename')!='' ? 'config='+getvalue('configfilename')+'&'+params : params;
+		params = getvalue('configfilename')!='' ? '&config='+getvalue('configfilename')+params : params;
+		params = params.replace('&','');
 	}
 	sethtml('texto', '&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\

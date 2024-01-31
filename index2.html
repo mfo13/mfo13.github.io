@@ -542,6 +542,7 @@
         var params='';
         var saida = '<b>HTML code:</b><br><br>'
         var movetextint = parseInt(getvalue('movetext'),10);
+	var separado =[];
                         
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
@@ -629,7 +630,8 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }
-      params.split("&").forEach(mostra);
+      separado = params.split("&");
+      separado.forEach(mostra);
       function mostra(item){
 	      console.log(item);
       }

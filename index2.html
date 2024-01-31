@@ -621,7 +621,7 @@
 	if (!params=='') {
 		params = params.replace('&','');
 	}
-	split = params.split("&")
+	var splitparams = params.split("&")
         sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
@@ -630,7 +630,7 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }
-      split.forEach(mostra);
+      splitparams.forEach(mostra);
       function mostra(item){
 	      console.lot(item);
       }

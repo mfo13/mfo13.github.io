@@ -633,7 +633,7 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		  &lt;/div><br>');
-	 let configtext = params.replace(/&/,"<br>");
+	 let configtext = params.replace(/&/g,"<br>");
 	 sethtml('configtext', '<b>Config file</b><br><br>'+configtext);         
       }
               

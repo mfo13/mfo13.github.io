@@ -628,14 +628,10 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		  &lt;/div><br>');
+	 let splitparams = params.split('&');
+         splitparams.forEach((i) => console.log(i));
       }
-      let stringparams = params.toString();
-      let splitparams = stringparams.split('&');
-      splitparams.forEach(mostra);
-      function mostra(item){
-	      console.log(item);
-      }
-      
+              
       function reverse(nome) {
         if (getdisplay(nome) == 'none') {
           setdisplay(nome, 'block');
@@ -713,7 +709,6 @@
             setdisplay('setsuperfacelets', 'none');
           }
       }
-
 
       function dotable() {
         var num = getvalue('cubesize');

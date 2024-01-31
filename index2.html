@@ -629,8 +629,9 @@
                   &lt;/script><br>\
 		  &lt;/div><br>');
       }
-      let separado = params.split("&");
-      separado.forEach(mostra);
+      let stringparams = params.toString();
+      let splitparams = stringparams.split('&');
+      splitparams.forEach(mostra);
       function mostra(item){
 	      console.log(item);
       }

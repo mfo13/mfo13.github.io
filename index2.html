@@ -521,6 +521,11 @@
                 &lt;/script><br>
 		&lt;/div><br>
             </div>
+	    <br>
+            <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+                <b>Config file</b><br>
+                <br>
+             </div>
           </td>
         </tr>
         <tr>
@@ -628,8 +633,8 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		  &lt;/div><br>');
-	 let splitparams = params.split('&');
-         splitparams.forEach((i) => console.log(i));
+	 let configtext = params.replace(/&/,"<br>");
+	 sethtml('configtext', '<b>Config file</b><br><br>'+configtext);         
       }
               
       function reverse(nome) {

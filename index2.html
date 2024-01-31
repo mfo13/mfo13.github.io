@@ -631,12 +631,11 @@
             AnimCube7("id=cube"+params);
             break;
         }
+	let configtext = '&nbsp;<br>&nbsp;<br>';
 	if (!params=='') {
-		params += getvalue('configfilename')!='' ? '&config='+getvalue('configfilename') : '';
 		params = params.replace('&','');
-		let configtext = params.replace(/&/g,"<br>");
-	} else {
-		let configtext = '&nbsp;<br>&nbsp;<br>';
+		configtext = params.replace(/&/g,"<br>");
+		params = getvalue('configfilename')!='' ? 'config='+getvalue('configfilename')+'&'+params : params;
 	}
 	sethtml('texto', '&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\

@@ -510,9 +510,9 @@
               <div id="cube" style="width:400px;height:400px"></div>
             </center>
             <br>
-	    <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white;" onclick="openTab(event, 'htmlcode')"><b>HTML code</b></a>
+	    <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white;" onclick="openTab(event, 'htmlcode')"><b>&nbsp;HTML code&nbsp;</b></a>
 	    &nbsp; &nbsp;
-	    <a href="javascript:void(0)" class="tabbtn" style="background-color:gray;" onclick="openTab(event, 'animcubetxt')"><b>AnimCube.txt</b></a>
+	    <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray;" onclick="openTab(event, 'animcubetxt')"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
 	    <div id="htmlcode" class="w3-container tabs w3-animate-opacity">
               <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
                 &lt;script src="AnimCube3.js">&lt;/script><br>
@@ -1035,12 +1035,12 @@
   	}
   	var activebtn = document.getElementsByClassName("tabbtn");
   	for (i = 0; i < x.length; i++) {
-    		activebtn[i].className = activebtn[i].className.style.backgroundcolor="gray";
-		activebtn[i].className = activebtn[i].className.style.color="black";
+    		activebtn[i].style.backgroundcolor="lightgray";
+		activebtn[i].style.color="black";
   	}
   	document.getElementById(tabname).style.display = "block";
-  	evt.currentTarget.className.style.backgroundcolor = "black";
-	evt.currentTarget.className.style.color = "white";
+  	evt.currentTarget.style.backgroundcolor = "black";
+	evt.currentTarget.style.color = "white";
       }
     </script>
   </body>

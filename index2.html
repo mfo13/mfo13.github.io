@@ -520,6 +520,7 @@
 	    <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="setdisplay('configfile','none'); openTab(event, 'animcubetxt')"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
 	    <div id="htmlcode" class="tabs">
               <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+		<br>      
                 &lt;script src="AnimCube3.js">&lt;/script><br>
 		<br>
                 &lt;div style="width:400px;height:400px;"><br>
@@ -527,6 +528,7 @@
                 AnimCube3("")<br>
                 &lt;/script><br>
 		&lt;/div><br>
+		<br>
 	      </div>
             </div>
 	    <div id="animcubetxt" class="tabs" style="display:none;">
@@ -634,17 +636,17 @@
 	let configtext = '&nbsp;<br>&nbsp;<br>';
 	if (!params=='' || getvalue('configfilename')!='') {
 		configtext = params.replace(/&/g,"<br>");
-		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
+		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext+'<br>';
 		params = getvalue('configfilename')!='' ? '&config='+getvalue('configfilename')+params : params;
 		params = params.replace('&','');
 	}
-	sethtml('texto', '&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
+	sethtml('texto', '<br>&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
-		  &lt;/div><br>');
+		  &lt;/div><br><br>');
 	sethtml('configtext', configtext);         
       }
               

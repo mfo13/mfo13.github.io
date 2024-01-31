@@ -634,6 +634,9 @@
         }
 	if (!params=='') {
 		params = params.replace('&','');
+		let configtext = params.replace(/&/g,"<br>");
+	} else {
+		let configtext = '&nbsp;<br>&nbsp;<br>';
 	}
 	sethtml('texto', '&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
@@ -642,8 +645,7 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		  &lt;/div><br>');
-	 let configtext = params.replace(/&/g,"<br>");
-	 sethtml('configtext', configtext);         
+	sethtml('configtext', configtext);         
       }
               
       function reverse(nome) {

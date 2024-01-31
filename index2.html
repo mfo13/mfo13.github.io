@@ -558,8 +558,7 @@
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
-        params += getvalue('configfilename')!='' ? '&config='+getvalue('configfilename') : '';
-	params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
         params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
@@ -633,6 +632,7 @@
             break;
         }
 	if (!params=='') {
+		params += getvalue('configfilename')!='' ? '&config='+getvalue('configfilename') : '';
 		params = params.replace('&','');
 		let configtext = params.replace(/&/g,"<br>");
 	} else {

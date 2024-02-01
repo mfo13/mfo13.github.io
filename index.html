@@ -257,8 +257,9 @@
                 <br>
                 yz:
 		<div id='yzoptions' style='display:none;'>
-                  //<input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
-                  //<input type="radio" name="yz" checked onchange="replace_cube()"/>off
+                  <!-- <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
+                       <input type="radio" name="yz" checked onchange="replace_cube()"/>off
+		  -->
 		  <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
 		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default

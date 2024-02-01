@@ -564,7 +564,7 @@
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
 
-	var config = getvalue('config')!='' ? getvalue('config').replace(/\n/g,'&');
+	var config = getvalue('config')!='' ? getvalue('config').replace(/\n/g,'&') : '';
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 

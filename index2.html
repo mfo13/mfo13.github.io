@@ -192,8 +192,8 @@
                   <br>
 		  <div id='showconfig' style='display: none;'>
 		    <span style="font-size:10;">AnimCube.txt</span>
-                    <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
-                    <br>
+                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+		    <br>
                   </div>
 		</div>
               </div>
@@ -563,6 +563,8 @@
       function replace_cube() {
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
+
+	console.log(getvalue('config'));
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 

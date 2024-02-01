@@ -108,15 +108,6 @@
                 frame height: 
                 <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
                 <br>
-		<div id="configfile">
-		  <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
-                  <br>
-		  <div id='showconfig' style='display: none;'>
-		    AnimCube.txt
-                    <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
-                    <br>
-                  </div>
-		</div>
 		bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
                 <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
@@ -196,6 +187,15 @@
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
                 <input type="radio" name="supercube" checked onchange="setdisplay('supercubestuff', 'none'); replace_cube();"/>off
                 <br>
+		<div id="configfile">
+		  <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
+                  <br>
+		  <div id='showconfig' style='display: none;'>
+		    AnimCube.txt
+                    <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                    <br>
+                  </div>
+		</div>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
               <a href="javascript:void(0)" id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>

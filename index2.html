@@ -564,10 +564,7 @@
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
 
-	let lines = getvalue('config').split('\n');
-	for (i = 0; i < lines.length; i++) {
-  		console.log(i+": "+lines[i]);
-	}
+	var config = getvalue('config')!='' ? getvalue('config').replace(/\n/g,'&');
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
@@ -627,25 +624,29 @@
         params += getvalue('scramble')!='0' ? '&scramble='+getvalue('scramble') : '';
         params += getvalue('randmoves')!='0' ? '&randmoves='+getvalue('randmoves') : '';
 
+	//for (i = 0; i < lines.length; i++) {
+  	//	console.log(i+": "+lines[i]);
+	//}
+
         acjs_removeListeners['cube']();
         switch (getvalue('cubesize')) {
           case '2':
-            AnimCube2("id=cube"+params);
+            AnimCube2("id=cube"+config+params);
             break;
           case '3':
-            AnimCube3("id=cube"+params);
+            AnimCube3("id=cube"+config+params);
             break;
           case '4':
-            AnimCube4("id=cube"+params);
+            AnimCube4("id=cube"+config+params);
             break;
           case '5':
-            AnimCube5("id=cube"+params);
+            AnimCube5("id=cube"+config+params);
             break;
           case '6':
-            AnimCube6("id=cube"+params);
+            AnimCube6("id=cube"+config+params);
             break;
           case '7':
-            AnimCube7("id=cube"+params);
+            AnimCube7("id=cube"+config+params);
             break;
         }
 	let configtext = '&nbsp;<br>&nbsp;<br>';

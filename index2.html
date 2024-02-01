@@ -646,10 +646,10 @@
             break;
         }
 	let configtext = '&nbsp;<br>&nbsp;<br>';
-	if (!params=='' || getvalue('configfilename')!='') {
+	if (!params=='' || getvalue('config')!='') {
 		configtext = params.replace(/&/g,"<br>");
 		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
-		params = getvalue('configfilename')!='' ? '&config='+getvalue('configfilename')+params : params;
+		params = getvalue('config')!='' ? '&config=AnimCube.txt'+params : params;
 		params = params.replace('&','');
 	}
 	sethtml('texto', '<br>&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\

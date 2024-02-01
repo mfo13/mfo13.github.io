@@ -262,8 +262,10 @@
                 <br>
                 yz:
 		<div id='yzoptions' style='display:none;'>
-                  <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
-                  <input type="radio" name="yz" checked onchange="replace_cube()"/>off
+                  <!-- <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
+                       <input type="radio" name="yz" checked onchange="replace_cube()"/>off
+		  -->
+		  <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
 		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
@@ -566,7 +568,8 @@
         params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
         params += checked('clickprogressoff') ? '&clickprogress=0' : '';
         params += checked('snapon') ? '&snap=1' : '';
-        params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')=='1' && getvalue('move')=='' && getvalue('scramble')=='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
+        //params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')=='1' && getvalue('move')=='' && getvalue('scramble')=='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
+	params += !checked('buttonbardefault') ? '&buttonbar='+getvalue('buttonbar') : '';
         params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
         params += checked('repeatoff') ? '&repeat=0' : '';
         params += checked('editoff') ? '&edit=0' : '';
@@ -580,14 +583,17 @@
         params += getvalue('hintvert')!= '3.7' ? '&hintvert='+getvalue('hintvert') : '';
         params += checked('hintborderon') ? '&hintborder=1' : '';
         params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
-        params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
-        params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
+        //params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
+        //params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
+	params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
-        params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
+        //params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
+	params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
         setdisplay('movetextalert', !checked('movetextdefault') && movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
-        params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
-        params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
+        //params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
+        //params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
+	params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
         params += checked('signon') ? '&sign=1' : '';
         params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';

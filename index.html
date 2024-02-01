@@ -257,8 +257,9 @@
                 <br>
                 yz:
 		<div id='yzoptions' style='display:none;'>
-                  <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
-                  <input type="radio" name="yz" checked onchange="replace_cube()"/>off
+                  //<input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
+                  //<input type="radio" name="yz" checked onchange="replace_cube()"/>off
+		  <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
 		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
@@ -577,7 +578,7 @@
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         //params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
         //params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
-	params += !checked('yzdefault') && checked('switchyz') ? '&yz=1' : '&yz=0';
+	params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
         params += checked('signon') ? '&sign=1' : '';
         params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';

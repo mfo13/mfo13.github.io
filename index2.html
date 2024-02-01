@@ -564,7 +564,10 @@
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
 
-	console.log(getvalue('config'));
+	let lines = getvalue('config').split('\n');
+	for (i = 0; i < lines.length; i++) {
+  		console.log(i+": "+lines[i]);
+	}
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 

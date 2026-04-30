@@ -15,12 +15,12 @@
     <meta name="author" content="Marcelo Falcão de Oliveira">
 
     <!-- Set the correct paths to Animcube scripts here -->
-    <script src="scripts/AnimCube2.js"></script>
-    <script src="scripts/AnimCube3.js"></script>
-    <script src="scripts/AnimCube4.js"></script>
-    <script src="scripts/AnimCube5.js"></script>
-    <script src="scripts/AnimCube6.js"></script>
-    <script src="scripts/AnimCube7.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube2.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube3.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube5.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube6.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube7.js"></script>
     <!-- -->
 	  
   </head>
@@ -102,22 +102,22 @@
               <a href="javascript:void(0)" id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
               <div id="cubesettings" style="display: none;">
                 <hr>
-		<div id="configfile">
+		            <div id="configfile">
                   frame width: 
                   <input type="number" id="width" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
                   <br>
                   frame height: 
                   <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
                   <br>
-		  <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
+		              <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
                   <br>
-		  <div id='showconfig' style='display: none;'>
-		    <span style="font-size:12px;">AnimCube.txt</span>
+		              <div id='showconfig' style='display: none;'>
+		                <span style="font-size:12px;">AnimCube.txt</span>
                     <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
-		    <br>
+		                <br>
                   </div>
-		</div>
-		bgcolor: 
+		            </div>
+		            bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
                 <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
                 <br>
@@ -190,13 +190,13 @@
                 <br>
                 borderwidth: 
                 <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
-		<input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
                 <input type="radio" name="supercube" checked onchange="setdisplay('supercubestuff', 'none'); replace_cube();"/>off
                 <br>
-	      </div>
+	            </div>
               <hr style="border-style: groove; border-width: 2px;">
               <a href="javascript:void(0)" id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>
               <div id="buttonbarsettings" style="display: none;">
@@ -223,11 +223,14 @@
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                 </select>
-		<input type="checkbox" id="buttonbardefault" checked onchange="setdisplay('buttonbar', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type="checkbox" id="buttonbardefault" checked onchange="setdisplay('buttonbar', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 buttonheight: 
                 <input type="number" id="buttonheight" style="width:40px;" step="1" min="9" max="25" value="13" onchange="replace_cube()"/>
                 <br>
+                <br>
+                butsymbolscale:
+                <input type="number" id="butsymbolscale" style="width:40px;" step="0.1" min="0.5" max="2.5" value="1.0" onchange="replace_cube()"/>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
               <a href="javascript:void(0)" id='label:hintsettings' onclick="reverse('hintsettings');"><b>Hint &#8631;</b></a>
@@ -257,27 +260,27 @@
                 <br>
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
-		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
-		<br>
+		            <input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		            <br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
                 <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 
                 <br>
                 yz:
-		<div id='yzoptions' style='display:none;'>
+		            <div id='yzoptions' style='display:none;'>
                   <!-- <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
                        <input type="radio" name="yz" checked onchange="replace_cube()"/>off
-		  -->
-		  <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
+		              -->
+		              <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
-		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
                 <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
                 <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
-		wca: 
+		            wca: 
                 <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
                 <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
@@ -324,11 +327,11 @@
               <a href="javascript:void(0)" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Faces &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
-		<div id='faceletsshow'>
+		            <div id='faceletsshow'>
                   facelets:
                   <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
                   <br>
-		  <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+		              <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 </div>
                 <div id='setfacelets' style='display: none;'>
                   <br>
@@ -461,10 +464,10 @@
                   <br>
                   <br>
                 </div>
-		<div id="supercubestuff" style="display: none;">
-		  scw: 
+		            <div id="supercubestuff" style="display: none;">
+		              scw: 
                   <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
-		  <br>
+		              <br>
                   superfacelets:
                   <input id='superfaceletsdefault' type="checkbox" checked onchange="unfold_supercube(); replace_cube();"/>default
                   <br>
@@ -506,7 +509,7 @@
                     </table>
                     <br>
                   </div>
-		</div>
+		            </div>
                 gabbacolors: 
                 <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
                 <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
@@ -521,27 +524,27 @@
               <div id="cube" style="width:400px;height:400px"></div>
             </center>
             <br>
-	    <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white; border:solid; border-color:black; border-width:1px;" onclick="setdisplay('configfile','block'); openTab(event, 'htmlcode'); replace_cube();"><b>&nbsp;HTML code&nbsp;</b></a>
-	    &nbsp;
-	    <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="setdisplay('configfile','none'); openTab(event, 'animcubetxt'); replace_cube();"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
-	    <div id="htmlcode" class="tabs">
+	          <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white; border:solid; border-color:black; border-width:1px;" onclick="setdisplay('configfile','block'); openTab(event, 'htmlcode'); replace_cube();"><b>&nbsp;HTML code&nbsp;</b></a>
+	          &nbsp;
+	          <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="setdisplay('configfile','none'); openTab(event, 'animcubetxt'); replace_cube();"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
+	          <div id="htmlcode" class="tabs">
               <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-		<br>      
+		            <br>      
                 &lt;script src="AnimCube3.js">&lt;/script><br>
-		<br>
+		            <br>
                 &lt;div style="width:400px;height:400px;"><br>
                 &lt;script><br>
                 AnimCube3("")<br>
                 &lt;/script><br>
-		&lt;/div><br>
-		<br>
-	      </div>
+		            &lt;/div><br>
+		            <br>
+	            </div>
             </div>
-	    <div id="animcubetxt" class="tabs" style="display:none;">
-	      <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-		&nbsp;<br>
-		&nbsp;<br>
- 	      </div>
+	          <div id="animcubetxt" class="tabs" style="display:none;">
+	            <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+		            &nbsp;<br>
+		            &nbsp;<br>
+ 	            </div>
             </div>
           </td>
         </tr>
@@ -564,7 +567,7 @@
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
 
-	var config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
+	      var config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
@@ -576,8 +579,9 @@
         params += checked('clickprogressoff') ? '&clickprogress=0' : '';
         params += checked('snapon') ? '&snap=1' : '';
         //params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')=='1' && getvalue('move')=='' && getvalue('scramble')=='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
-	params += !checked('buttonbardefault') ? '&buttonbar='+getvalue('buttonbar') : '';
+	      params += !checked('buttonbardefault') ? '&buttonbar='+getvalue('buttonbar') : '';
         params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
+        params += getvalue('butsymbolscale')!='1' ? '&butsymbolscale='+getvalue('butsymbolscale') : '';
         params += checked('repeatoff') ? '&repeat=0' : '';
         params += checked('editoff') ? '&edit=0' : '';
         params += getvalue('speed')!='10' ? '&speed='+getvalue('speed') : '';
@@ -592,15 +596,15 @@
         params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
         //params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         //params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
-	params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
+	      params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
         //params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
-	params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
+	      params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
         setdisplay('movetextalert', !checked('movetextdefault') && movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         //params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
         //params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
-	params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
+	      params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
         params += checked('signon') ? '&sign=1' : '';
         params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
@@ -624,15 +628,15 @@
         params += getvalue('scramble')!='0' ? '&scramble='+getvalue('scramble') : '';
         params += getvalue('randmoves')!='0' ? '&randmoves='+getvalue('randmoves') : '';
 
-	//for (i = 0; i < lines.length; i++) {
-  	//	console.log(i+": "+lines[i]);
-	//}
+	      //for (i = 0; i < lines.length; i++) {
+  	    //	console.log(i+": "+lines[i]);
+	      //}
 
-	let extra='';
-	console.log(getdisplay('animcubetxt'));
-	if (getdisplay('animcubetxt')=='none'){
-		extra = config;	
-	}
+	      let extra='';
+	      console.log(getdisplay('animcubetxt'));
+	      if (getdisplay('animcubetxt')=='none'){
+		      extra = config;	
+	      }
 
         acjs_removeListeners['cube']();
         switch (getvalue('cubesize')) {
@@ -655,21 +659,21 @@
             AnimCube7("id=cube"+extra+params);
             break;
         }
-	let configtext = '&nbsp;<br>&nbsp;<br>';
-	if (!params=='' || getvalue('config')!='') {
-		configtext = params.replace(/&/g,"<br>");
-		configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
-		params = getvalue('config')!='' ? '&config=AnimCube.txt'+params : params;
-		params = params.replace('&','');
-	}
-	sethtml('texto', '<br>&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
+	      let configtext = '&nbsp;<br>&nbsp;<br>';
+	      if (!params=='' || getvalue('config')!='') {
+		      configtext = params.replace(/&/g,"<br>");
+		      configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
+		      params = getvalue('config')!='' ? '&config=AnimCube.txt'+params : params;
+		      params = params.replace('&','');
+	      }
+	      sethtml('texto', '<br>&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
-		  &lt;/div><br><br>');
-	sethtml('configtext', configtext+'<br><br>');         
+		              &lt;/div><br><br>');
+	      sethtml('configtext', configtext+'<br><br>');         
       }
               
       function reverse(nome) {
@@ -687,7 +691,7 @@
         //dotable();
         if (!checked('faceletsdefault')) {
           //dopallet();
-	  dotable();
+	        dotable();
           setfacelets();
           setdisplay('setfacelets', 'block');
           setdisplay('showpallet', 'block');
@@ -897,14 +901,14 @@
           index = getattrib('CS_'+faces[f], 'data-face');
           setbackground('CS_'+faces[f], getbackground('pallet-'+index));
           //update facelets if faceletsdefault is not set
-	  if (!checked('faceletsdefault')) {
+	        if (!checked('faceletsdefault')) {
             for (var i=1; i<=parseInt(num,10); i++) {
               for (var j=1; j<=parseInt(num,10); j++) {
                 index = getattrib(faces[f]+'lin'+i.toString()+'col'+j.toString(), 'data-face');
                 setbackground(faces[f]+'lin'+i.toString()+'col'+j.toString(), getbackground('pallet-'+index));
               }
             }
-	  }
+	        }
         }
         setbackground('selectedcolor', getbackground('pallet-'+gethtml('selectedindex')));
       }
@@ -1060,19 +1064,19 @@
       }
       
       function openTab(evt, tabname) {
-  	var i;
-  	var x = document.getElementsByClassName("tabs");
-  	for (i = 0; i < x.length; i++) {
-     		x[i].style.display = "none";
-  	}
-  	var activebtn = document.getElementsByClassName("tabbtn");
-  	for (i = 0; i < x.length; i++) {
-    		activebtn[i].style.background="lightgray";
-		activebtn[i].style.color="gray";
-  	}
-  	document.getElementById(tabname).style.display = "block";
-  	evt.currentTarget.style.background = "black";
-	evt.currentTarget.style.color = "white";
+  	    var i;
+  	    var x = document.getElementsByClassName("tabs");
+  	    for (i = 0; i < x.length; i++) {
+     		  x[i].style.display = "none";
+  	    }
+  	    var activebtn = document.getElementsByClassName("tabbtn");
+  	    for (i = 0; i < x.length; i++) {
+    		  activebtn[i].style.background="lightgray";
+		      activebtn[i].style.color="gray";
+  	    }
+  	    document.getElementById(tabname).style.display = "block";
+  	    evt.currentTarget.style.background = "black";
+	      evt.currentTarget.style.color = "white";
       }
     </script>
   </body>

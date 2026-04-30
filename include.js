@@ -1,3 +1,4 @@
+//
 function include(thing) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {

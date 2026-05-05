@@ -27,14 +27,18 @@
 
   <style>
     @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    html {
+        font-family: 'Open Sans', sans-serif;
+    }
     table, td {
-      font-family: 'Open Sans', sans-serif;
       font-size: 15px;
       text-align: left;
-      padding-left: 10px;
-      padding-right: 10px;
       vertical-align: top;
+      margin-left: 1%;
     }
+    hr {
+      color: blueviolet;
+    }  
     a:link {
       color: black;
       text-decoration: none;
@@ -61,7 +65,6 @@
       font-size: 12px;
     }
     .opencube {
-      font-family: 'Open Sans', sans-serif;
       padding: 0px;
       border-collapse: 0px;
       border-spacing: 0px;
@@ -72,7 +75,6 @@
       border-spacing: 0px;
     }
     table.position td {
-      font-family: 'Open Sans', sans-serif;
       font-size: 40px;
       padding: 0px;
       border-collapse: 0px;
@@ -80,17 +82,57 @@
       vertical-align: middle;
       text-align: center;
     }
+    .lateral {
+        display: none;
+    }
+    .botaolateral {
+        display: flex;
+        justify-self: center;
+    }
+    .principal {
+        display: table-cell;
+    }
+    .escondeprincipal .principal {
+        display: none;
+    }
+    .caixatexto {
+        width: 350px;
+    }
+
+    /* modo desktop */
+    @media (min-width:900px){
+        /* desktop → mostra lateral */
+        .lateral {
+            display: table-cell;
+        }
+        .botaolateral {
+            display: none;
+        }
+        .caixatexto {
+            width: 400px;
+        }
+    }
+
+    /* Classe que força aparecer mesmo em tela pequena */
+    .mostralateral .lateral {
+        display: table-cell;
+    }
   </style>
 
   <body>
-    <center>
-      <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJS Configuration Tool</h1>
-      <table width='800px'>
+    
+    <div style="justify-items: center;">  
+        <h1>AnimCubeJS Configuration Tool</h1>
+    </div>
+    <div class="botaolateral">
+        <button id="butsettings" style="font-size: 16px;">☰ Settings</button>
+    </div>
+    <div style="justify-items: center;">
+      <table class="tabelageral">
         <tr>
-          <td>
-            <div>
+          <td class="lateral">
               <b>Cube:</b>
-              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="check('faceletsdefault', true); setdisplay('showcolorscheme','block'); unfold_cube(); unfold_supercube(); replace_cube();">
+              <select id="cubesize" style="font-size: 15px;" onchange="check('faceletsdefault', true); setdisplay('showcolorscheme','block'); unfold_cube(); unfold_supercube(); replace_cube();">
                 <option value="2">2x2x2</option>
                 <option value="3" selected>3x3x3</option>
                 <option value="4">4x4x4</option>
@@ -102,12 +144,12 @@
               <a href="javascript:void(0)" id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
               <div id="cubesettings" style="display: none;">
                 <hr>
-		            <div id="configfile">
+		        <div id="configfile">
                   frame width: 
-                  <input type="number" id="width" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                  <input type="number" id="width" style="width:50px;" value="350" step="1" min="50" max="999" onchange="replace_cube()"/> px
                   <br>
                   frame height: 
-                  <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                  <input type="number" id="height" style="width:50px;" value="350" step="1" min="50" max="999" onchange="replace_cube()"/> px
                   <br>
 		              <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
                   <br>
@@ -115,9 +157,9 @@
 		                <span style="font-size:12px;">AnimCube.txt</span>
                     <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
 		                <br>
-                  </div>
-		            </div>
-		            bgcolor: 
+                </div>
+		      </div>
+		        bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
                 <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
                 <br>
@@ -148,7 +190,7 @@
                 <br> 
                 <textarea id="position" style="width:120px; display: none;">lluu</textarea>
                 <div id="changeposition" style="display: none;">
-                  <center>
+                  
                     <table class='position'>
                       <tbody>
                         <tr>
@@ -176,7 +218,7 @@
                         </tr>
                       </tbody>
                     </table>
-                  <center>
+                  
                   <br>
                 </div>
                 scale: 
@@ -377,7 +419,7 @@
                   <input type="text" id="colorscheme" value='wyorgb' style="width:60px; display: none;"/>
                   <div id='setcolorscheme' style='display: none;'>
                     <br>
-                    <center>
+                    
                       <table class='opencube'>
                         <tbody>
                           <tr>
@@ -418,7 +460,7 @@
                           </tr>
                         </tbody>
                       </table>
-                    </center>
+                    
                     <br>
                   </div>
                 </div>
@@ -516,34 +558,35 @@
               </div>
               <hr style="border-style: groove; border-width: 2px;">
               <input type="button" value="Refresh page" onclick="location.reload(true);" />
-            </div>
           </td>
-          <td>
-            <center>
-              <div id="cube" style="width:400px;height:400px"></div>
-            </center>
-            <br>
-	          <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white; border:solid; border-color:black; border-width:1px;" onclick="setdisplay('configfile','block'); openTab(event, 'htmlcode'); replace_cube();"><b>&nbsp;HTML code&nbsp;</b></a>
-	          &nbsp;
-	          <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="setdisplay('configfile','none'); openTab(event, 'animcubetxt'); replace_cube();"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
-	          <div id="htmlcode" class="tabs">
-              <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-		            <br>      
-                &lt;script src="AnimCube3.js">&lt;/script><br>
-		            <br>
-                &lt;div style="width:400px;height:400px;"><br>
-                &lt;script><br>
-                AnimCube3("")<br>
-                &lt;/script><br>
-		            &lt;/div><br>
-		            <br>
-	            </div>
-            </div>
-	          <div id="animcubetxt" class="tabs" style="display:none;">
-	            <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
-		            &nbsp;<br>
-		            &nbsp;<br>
- 	            </div>
+          <td class="principal">
+            <div style="justify-items: center;">
+              <div id="cube" style="width:350px;height:350px"></div> 
+              <br>
+              <div style="justify-self: left;">
+                <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white; border:solid; border-color:black; border-width:1px;" onclick="setdisplay('configfile','block'); openTab(event, 'htmlcode'); replace_cube();"><b>&nbsp;HTML code&nbsp;</b></a>
+                &nbsp;
+                <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="setdisplay('configfile','none'); openTab(event, 'animcubetxt'); replace_cube();"><b>&nbsp;AnimCube.txt&nbsp;</b></a>
+              </div>
+              <div id="htmlcode" class="tabs">
+                <div class="caixatexto" id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px; overflow-wrap: break-word;">
+                  <br>      
+                  &lt;script src="AnimCube3.js">&lt;/script><br>
+                  <br>
+                  &lt;div style="width:350px;height:350px;"><br>
+                  &lt;script><br>
+                  AnimCube3("")<br>
+                  &lt;/script><br>
+                  &lt;/div><br>
+                  <br>
+                </div>
+              </div>
+              <div id="animcubetxt" class="tabs" style="display:none;">
+                <div class="caixatexto" id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;overflow-wrap: break-word;">
+                  &nbsp;<br>
+                  &nbsp;<br>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
@@ -551,8 +594,24 @@
           <br>
         </tr>
       </table>
-    </center>
-
+    </div>
+    <!-- script for menu handling-->
+    <script>
+        "use strict";
+        const butsettings = document.getElementById('butsettings');
+        butsettings.addEventListener('click', () => {
+            document.body.classList.toggle('mostralateral');
+            document.body.classList.toggle('escondeprincipal');
+            replace_cube();
+        });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 900) {
+            document.body.classList.remove('mostralateral');
+            document.body.classList.remove('escondeprincipal');
+          }
+        });
+    </script>
+    <!-- Main script-->
     <script>
       "use strict";
 

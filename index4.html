@@ -150,13 +150,13 @@
                   <br>
 		              <div id='showconfig' style='display: none;'>
 		                <span style="font-size:12px;">AnimCube.txt</span>
-                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube();"></textarea>
 		                <br>
                 </div>
 		      </div>
 		        bgcolor: 
-                <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
+                <input type="color" id="bgcolor" style='display: none;' onchange="replace_cube()"/>
+                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', d_bgcolor); replace_cube()"/>default
                 <br>
                 cubecolor:  
                 <input type="color" id="cubecolor" value="#000000" style='display: none;' onchange="replace_cube()"/>
@@ -608,11 +608,16 @@
     </script>
     <!-- Main script-->
     <script>
-      "use strict";
-
       var acjs_removeListeners = [];
+      var acjs_get_var = [];
+      var acjs_put_var = [];
+      var acjs_paint = [];
+      var acjs_config = [];
+      var acjs_parseConfigFile = [];
+      var acjs_getParameter = [];
+      
       AnimCube3("id=cube");
-
+         
       dopallet();
       dotable();
 
@@ -621,10 +626,10 @@
         let movetextint = parseInt(getvalue('movetext'),10);
 
 	      let config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
-	                     
+                        
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
-        params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        params += getvalue('bgcolor')!=d_bgcolor ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
         params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
@@ -697,7 +702,7 @@
             AnimCube2("id=cube"+extra+params);
             break;
           case '3':
-            AnimCube3("id=cube"+extra+params);
+            AnimCube3("id=cube"+params);
             break;
           case '4':
             AnimCube4("id=cube"+extra+params);
@@ -712,7 +717,8 @@
             AnimCube7("id=cube"+extra+params);
             break;
         }
-	      let configtext = '&nbsp;<br>&nbsp;<br>';
+        
+        let configtext = '&nbsp;<br>&nbsp;<br>';
 	      if (!params=='' || getvalue('config')!='') {
 		      configtext = params.replace(/&/g,"<br>");
 		      configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
@@ -1129,6 +1135,11 @@
   	    document.getElementById(tabname).style.display = "block";
   	    evt.currentTarget.style.background = "black";
 	      evt.currentTarget.style.color = "white";
+      }
+      
+      function setdefault(param, value) {
+        param = value;
+        setvalue(param, value);
       }
     </script>
   </body>

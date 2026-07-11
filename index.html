@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  
     <!-- Set the correct path to favicon here -->
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/sources/images/favicon.ico" type="image/x-icon">
     <!-- -->
 	  
     <title>AnimCubeJS Configuration Tool</title>
@@ -108,15 +108,24 @@
                 frame height: 
                 <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
                 <br>
+                <div id="configfile">
+		              <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config file &#8631;</u></a>
+                  <br>
+		              <div id='showconfig' style='display: none;'>
+		                <span style="font-size:12px;">AnimCube.txt (override default settings)</span>
+                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="setdefaultvalues(); replace_cube()"></textarea>
+		                <br>
+                  </div>
+		            </div>
                 bgcolor: 
-                <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
+                <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="setdefaultvalues(); replace_cube()"/>
+                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('bgcolor',currentdefaults['bgcolor']); replace_cube()"/>default
                 <br>
                 cubecolor:  
                 <input type="color" id="cubecolor" value="#000000" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="cubecolordefault" checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', '#000000'); replace_cube()"/>default
+                <input type='checkbox' id="cubecolordefault" checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('cubecolor',currentdefaults['cubecolor']); replace_cube()"/>default
                 <br>
-                snap: 
+                snap:
                 <input type="radio" name="snap" id="snapon" onchange="replace_cube()"/>on 
                 <input type="radio" name="snap" checked onchange="replace_cube()"/>off
                 <br>
@@ -181,7 +190,7 @@
                 <br>
                 borderwidth: 
                 <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
-		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('borderwidth',currentdefaults['borderwidth']); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
@@ -194,15 +203,15 @@
                 <hr>
                 butbgcolor: 
                 <input type="color" id="butbgcolor" value="#808080"; style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="butbgcolordefault" checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setvalue('butbgcolor', getvalue('bgcolor')); replace_cube();" />default
+                <input type='checkbox' id="butbgcolordefault" checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('butbgcolor',currentdefaults['butbgcolor']); replace_cube();" />default
                 <br>
                 slidercolor:
-                <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" id="slidercolordefault" checked onchange="setdisplay('slidercolor', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+                <input type="color" id="slidercolor" style="display: none;" value="#000000" onchange="replace_cube()"/>
+                <input type="checkbox" id="slidercolordefault" checked onchange="setdisplay('slidercolor', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('slidercolor',currentdefaults['slidercolor']); replace_cube()"/>default
                 <br>
                 troughcolor:
                 <input type="color" id="troughcolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" id="troughcolordefault" checked onchange="setdisplay('troughcolor', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+                <input type="checkbox" id="troughcolordefault" checked onchange="setdisplay('troughcolor', this.checked ? 'none' : 'inline'); setdefaultvalues(); setvalue('troughcolor',currentdefaults['troughcolor']); replace_cube()"/>default
                 <br>
                 clickprogress: 
                 <input type="radio" name="clickprogress" checked onchange="replace_cube()"/>on 
@@ -214,7 +223,7 @@
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                 </select>
-		            <input type="checkbox" id="buttonbardefault" checked onchange="setdisplay('buttonbar', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type="checkbox" id="buttonbardefault" checked onchange="setdisplay('buttonbar', this.checked ? 'none' : 'inline'); setdefaultvalues(); replace_cube()"/>default
                 <br>
                 buttonheight: 
                 <input type="number" id="buttonheight" style="width:40px;" step="1" min="9" max="25" value="13" onchange="replace_cube()"/>
@@ -263,7 +272,7 @@
                   <!-- <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
                        <input type="radio" name="yz" checked onchange="replace_cube()"/>off
 		              -->
-		              <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
+		            <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
 		            <input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
@@ -421,7 +430,7 @@
                         <td>
                         </td>
                         <td>
-                          Selection:&nbsp;<text id="selectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                           Selection:&nbsp;<text id="selectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
                         </td>
                       </tr>
                       <tr>
@@ -537,45 +546,115 @@
     <script>
       "use strict";
 
+      // from Animcubejs manual
+      let defaultvalues = {
+        bgcolor: '#808080',
+        cubecolor: '#000000',
+        butbgcolor: '', // defaults to bgcolor
+        slidercolor: '', // defaults to textcolor (white or black) in animcubejs, textcolor depends on the average rgb (internal function) of bgcolor
+        troughcolor: '', // defaults to darker(bgcolor) in animcubejs, darker is an internal function
+        clickprogress: '1',
+        snap: '0',
+        buttonbar: '', // default depends on the move ad scramble parameters
+        buttonheight: '13',
+        butsymbolscale: '1',
+        repeat: '1',
+        edit: '1',
+        speed: '10',
+        doublespeed: '0',
+        position: 'lluu',
+        scale: '0',
+        align: '1',
+        hint: '0',
+        hinthoriz: '3.7',
+        hintvert: '3.7',
+        hintborder: '0',
+        perspective: '2',
+        borderwidth: '10', // default depends on supercube and gabbacolors
+        move: '',
+        movetext: '0',
+        movetextspace: '1',
+        yz: '0',
+        sign: '0',
+        wca: '0',
+        initmove: '',
+        initrevmove: '',
+        demo: '',
+        metric: '0',
+        counter: '1',
+        fonttype: '1',
+        textsize: '12',
+        facelets: '',
+        colorscheme: '',
+        colors: '',
+        pos: '',
+        supercube: '0',
+        superfacelets: '',
+        scw: '0',
+        gabbacolors: '0',
+        scramble: '0',
+        randmoves: '0'       
+      }
+    
+      let currentdefaults = {...setdependentdefaults (defaultvalues)};
+
       var acjs_removeListeners = [];
       AnimCube3("id=cube");
 
       dopallet();
       dotable();
 
+      function setdefaultvalues(){
+        let configfile = parseConfigFile(getvalue('config'));
+        currentdefaults = {...setdependentdefaults(defaultvalues)};
+        for (let chave in configfile) {
+          let value = '';
+          if (configfile.hasOwnProperty(chave)) {
+            if (chave.includes('color')) {value = '#'+configfile[chave]}
+              else {value = configfile[chave] }
+            currentdefaults[chave]=value;
+          }
+        }
+      }
+
       function replace_cube() {
-        var params='';
-        var saida = '<b>HTML code:</b><br><br>'
-        var movetextint = parseInt(getvalue('movetext'),10);
+        let params='';
+        let saida = '<b>HTML code:</b><br><br>'
+        let movetextint = parseInt(getvalue('movetext'),10);
+        let config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
                         
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
-        params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
-        params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
-        params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
-        params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
-        params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
-        params += checked('clickprogressoff') ? '&clickprogress=0' : '';
-        params += checked('snapon') ? '&snap=1' : '';
+        params += getvalue('bgcolor')!=currentdefaults['bgcolor'] && !checked('bgcolordefault') ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        params += getvalue('cubecolor')!=currentdefaults['cubecolor'] && !checked('cubecolordefault') ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
+        params += !checked('butbgcolordefault') && getvalue('butbgcolor')!=currentdefaults['butbgcolor'] ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
+        params += !checked('slidercolordefault') && getvalue('slidercolor')!=currentdefaults['slidercolor'] ? '&slidercolor='+getvalue('slidercolor').replace('#','') : '';
+        params += !checked('troughcolordefault') && getvalue('troughcolor')!=currentdefaults['troughcolor'] ? '&troughcolor='+getvalue('troughcolor').replace('#','') : '';
+        params += checked('clickprogressoff') && currentdefaults['clickprogress']=='1' ? '&clickprogress=0' : '';
+        params += !checked('clickprogressoff') && currentdefaults['clickprogress']=='0' ? '&clickprogress=1' : '';
+        params += checked('snapon') && currentdefaults['snap']=='0' ? '&snap=1' : '';
+        params += !checked('snapon') && currentdefaults['snap']=='1' ? '&snap=0' : '';
         //params += !checked('buttonbardefault') && ((getvalue('buttonbar')!='1' && (getvalue('move')!='' || getvalue('scramble')!='0')) || (getvalue('buttonbar')=='1' && getvalue('move')=='' && getvalue('scramble')=='0')) ? '&buttonbar='+getvalue('buttonbar') : '';
-	      params += !checked('buttonbardefault') ? '&buttonbar='+getvalue('buttonbar') : '';
-        params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
-        params += getvalue('butsymbolscale')!='1' ? '&butsymbolscale='+getvalue('butsymbolscale') : '';
-        params += checked('repeatoff') ? '&repeat=0' : '';
-        params += checked('editoff') ? '&edit=0' : '';
-        params += getvalue('speed')!='10' ? '&speed='+getvalue('speed') : '';
-        params += getvalue('doublespeed')!='0' ? '&doublespeed='+getvalue('doublespeed') : '';
-        params += getvalue('position').toLowerCase()!='lluu' && getvalue('position')!= '' ? '&position='+getvalue('position') : '';
-        params += getvalue('scale')!='0' ? '&scale='+getvalue('scale') : '';
-        params += getvalue('align')!='1' ? '&align='+getvalue('align') : '';
-        params += getvalue('hint')!='0' ? '&hint='+getvalue('hint') : '';
-        params += getvalue('hinthoriz')!='3.7' ? '&hinthoriz='+getvalue('hinthoriz') : '';
-        params += getvalue('hintvert')!= '3.7' ? '&hintvert='+getvalue('hintvert') : '';
+	      params += !checked('buttonbardefault') && getvalue('buttonbar')!=currentdefaults['buttonbar'] ? '&buttonbar='+getvalue('buttonbar') : '';
+        params += getvalue('buttonheight')!=currentdefaults['buttonheight'] ? '&buttonheight='+getvalue('buttonheight') : '';
+        params += getvalue('butsymbolscale')!=currentdefaults['butsymbolscale'] ? '&butsymbolscale='+getvalue('butsymbolscale') : '';
+        params += checked('repeatoff') && currentdefaults['repeat']=='1' ? '&repeat=0' : '';
+        params += !checked('repeatoff') && currentdefaults['repeat']=='0' ? '&repeat=1' : '';
+        params += checked('editoff') && currentdefaults['repeat']=='1' ? '&edit=0' : '';
+        params += !checked('editoff') && currentdefaults['repeat']=='0' ? '&edit=1' : '';
+        params += getvalue('speed')!=currentdefaults['speed'] ? '&speed='+getvalue('speed') : '';
+        params += getvalue('doublespeed')!=currentdefaults['doublespeed'] ? '&doublespeed='+getvalue('doublespeed') : '';
+        params += getvalue('position').toLowerCase()!=currentdefaults['position'] && getvalue('position')!= '' && !checked('positiondefault') ? '&position='+getvalue('position') : '';
+        params += getvalue('scale')!=currentdefaults['scale'] ? '&scale='+getvalue('scale') : '';
+        params += getvalue('align')!=currentdefaults['align'] ? '&align='+getvalue('align') : '';
+        params += getvalue('hint')!=currentdefaults['hint'] ? '&hint='+getvalue('hint') : '';
+        params += getvalue('hinthoriz')!=currentdefaults['hinthoriz'] ? '&hinthoriz='+getvalue('hinthoriz') : '';
+        params += getvalue('hintvert')!=currentdefaults['hintvert'] ? '&hintvert='+getvalue('hintvert') : '';
         params += checked('hintborderon') ? '&hintborder=1' : '';
-        params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
+        params += getvalue('perspective')!=currentdefaults['perspective'] ? '&perspective='+getvalue('perspective') : '';
         //params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         //params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
-	      params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
+	      params += !checked('borderwidthdefault') && getvalue('borderwidth')!=currentdefaults['borderwidth'] ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
         //params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
 	      params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
@@ -586,13 +665,13 @@
 	      params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
         params += checked('signon') ? '&sign=1' : '';
         params += checked('wcaon') ? '&wca=1' : '';
-        params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
-        params += getvalue('initrevmove')!='' ? '&initrevmove='+getvalue('initrevmove') : '';
-        params += getvalue('demo')!='' ? '&demo='+getvalue('demo') : '';
-        params += getvalue('metric')!='0' ? '&metric='+getvalue('metric') : '';
+        params += getvalue('initmove')!=currentdefaults['initmove'] ? '&initmove='+getvalue('initmove') : '';
+        params += getvalue('initrevmove')!=currentdefaults['initrevmove'] ? '&initrevmove='+getvalue('initrevmove') : '';
+        params += getvalue('demo')!=currentdefaults['demo'] ? '&demo='+getvalue('demo') : '';
+        params += getvalue('metric')!=currentdefaults['metric'] ? '&metric='+getvalue('metric') : '';
         params += checked('counteroff') ? '&counter=0' : '';
         params += checked('fonttypeoff') ? '&fonttype=0' : '';
-        params += getvalue('textsize')!='12' ? '&textsize='+getvalue('textsize') : '';
+        params += getvalue('textsize')!=currentdefaults['textsize'] ? '&textsize='+getvalue('textsize') : '';
         params += checked('faceletsdefault') ? '' : '&facelets='+getvalue('facelets'); 
         params += !checked('colorschemedefault') && checked('faceletsdefault') ? '&colorscheme='+getvalue('colorscheme') : '';
         if (!checked('colorsdefault')) {
@@ -600,37 +679,44 @@
           for (var i=0; i<10; i++)
             params += getvalue('color'+i.toString()).replace('#','');
         } 
-        params += checked('supercubeon') ? '&supercube=1' : '';
-        params += checked('supercubeon') && getvalue('superfacelets')!='' ? '&superfacelets='+getvalue('superfacelets') : '';
-        params += checked('supercubeon') && getvalue('scw')!='0' ? '&scw='+getvalue('scw') : '';
+        params += checked('supercubeon') && currentdefaults['supercube']=='0' ? '&supercube=1' : '';
+        params += !checked('supercubeon') && currentdefaults['supercube']=='1' ? '&supercube=0' : '';
+        params += checked('supercubeon') && getvalue('superfacelets')!=currentdefaults['superfacelets'] ? '&superfacelets='+getvalue('superfacelets') : '';
+        params += checked('supercubeon') && getvalue('scw')!=currentdefaults['scw'] ? '&scw='+getvalue('scw') : '';
         params += checked('gabbacolorson') ? '&gabbacolors=1' : '';
-        params += getvalue('scramble')!='0' ? '&scramble='+getvalue('scramble') : '';
-        params += getvalue('randmoves')!='0' ? '&randmoves='+getvalue('randmoves') : '';
+        params += getvalue('scramble')!=currentdefaults['scramble'] ? '&scramble='+getvalue('scramble') : '';
+        params += getvalue('randmoves')!=currentdefaults['randmoves'] ? '&randmoves='+getvalue('randmoves') : '';
 
         acjs_removeListeners['cube']();
         switch (getvalue('cubesize')) {
           case '2':
-            AnimCube2("id=cube"+params);
+            AnimCube2("id=cube"+config+params);
             break;
           case '3':
-            AnimCube3("id=cube"+params);
+            AnimCube3("id=cube"+config+params);
             break;
           case '4':
-            AnimCube4("id=cube"+params);
+            AnimCube4("id=cube"+config+params);
             break;
           case '5':
-            AnimCube5("id=cube"+params);
+            AnimCube5("id=cube"+config+params);
             break;
           case '6':
-            AnimCube6("id=cube"+params);
+            AnimCube6("id=cube"+config+params);
             break;
           case '7':
-            AnimCube7("id=cube"+params);
+            AnimCube7("id=cube"+config+params);
             break;
         }
-	      if (!params=='') {
+        
+        let configtext = '&nbsp;<br>&nbsp;<br>';
+	      if (!params=='' || getvalue('config')!='') {
+		      configtext = params.replace(/&/g,"<br>");
+		      configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
+		      params = getvalue('config')!='' ? '&config=AnimCube.txt'+params : params;
 		      params = params.replace('&','');
 	      }
+	      
         sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
@@ -638,6 +724,31 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		              &lt;/div><br>');
+      }
+
+      function setdependentdefaults (pairs) {
+        // enter hash of defaults and output a new hash
+        pairs['butbgcolor'] = pairs['bgcolor'];
+        if (checked('slidercolordefault')) {
+          pairs['slidercolor'] = colorAverage(pairs['bgcolor'])<128 ? '#ffffff' : '#000000';
+          setvalue('slidercolor',pairs['slidercolor']);
+        } else { 
+          pairs['slidercolor'] = colorAverage(getvalue('bgcolor'))<128 ? '#ffffff' : '#000000';
+        }
+        if (checked('troughcolordefault')) {
+          pairs['troughcolor'] = darker(pairs['bgcolor']);
+          setvalue('troughcolor',pairs['troughcolor']);
+        } else {
+          pairs['troughcolor'] = darker(getvalue('bgcolor')); 
+        }
+        if (checked('buttonbardefault')) {
+          pairs['buttonbar'] = pairs['move']!=='' || pairs['scramble']!=='' || getvalue('move')!='' || getvalue('scramble')!='' ? '1' : '2';
+          setvalue('buttonbar',pairs['buttonbar']);
+        } else {
+          setvalue('buttonbar',pairs['buttonbar']);
+        }
+        pairs['borderwidth'] = pairs['supercube']=='1' || pairs['gabbacolors']=='1' ? '6' : '10';
+        return pairs;
       }
       
       function reverse(nome) {
@@ -839,7 +950,7 @@
           }
         }
         table = '<table style="padding: 5px; border-spacing: 5px;">\
-              <tbody>';
+                  <tbody>';
         for (var i = 0; i < 6; i++) {
               table += '<tr>';
               for (var j=0; j<4; j++) {
@@ -848,7 +959,7 @@
               table += '</tr>';
         }
         table += "</tbody>\
-          </table>";
+                  </table>";
         sethtml('pallet', table);
       }
 
@@ -963,17 +1074,19 @@
       }
 
       function changeposition(action) {
-        var position = getvalue('position');
-        var len = position.length;
-        var last = position[len-1];
-        var sorted = [action,last].sort().join('');
+        if (action=='') {
+          setvalue('position', currentdefaults['position']);
+        }
+        let position = getvalue('position');
+        let len = position.length;
+        let last = position[len-1];
+        let sorted = [action,last].sort().join('');
         if (!checked('positiondefault')) {
           setdisplay('changeposition', 'block');
           position = action!='' && position=='0' ? '' : position;
           position = sorted=='lr' || sorted=='du' || sorted=='bf' ? position.substr(0, len-1) : position+action;
           position = position=='' ? '0' : position;
         } else {
-          position = 'lluu';
           setdisplay('changeposition', 'none');
         }
         position = position=='' ? '0' : position;
@@ -1026,7 +1139,47 @@
 
       function setattrib(id, attrib, value) {
          document.getElementById(id).setAttribute(attrib, value);
-      } 
-    </script>
+      }
+
+      // adapted from animcubejs code
+      function colorAverage(s) {
+        let r = parseInt(s.substring(1, 3), 16);
+        let g = parseInt(s.substring(3, 5), 16);
+        let b = parseInt(s.substring(5, 7), 16);
+        return ((r * 299 + g * 587 + b * 114) / 1000);
+      }
+
+      // adapted from animcubejs code
+      function darker(s) {
+        let r = parseInt(s.substring(1, 3), 16);
+        let g = parseInt(s.substring(3, 5), 16);
+        let b = parseInt(s.substring(5, 7), 16);
+        r = Math.floor(r * .7);
+        g = Math.floor(g * .7);
+        b = Math.floor(b * .7);
+        return rgbToHex(r, g, b);
+      }
+
+      // from animcubesj code
+      function rgbToHex(r, g, b) {
+        return "#" + lpad(r.toString(16)) + lpad(g.toString(16)) + lpad(b.toString(16));
+      }
+      function lpad(s) {
+        return (("00" + s).substring(s.length));
+      }
+
+      // adapted from animcubejs code
+      function parseConfigFile(text) {
+        var config = {};
+        var lines = text.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].split('=');
+          if (typeof line[1] != 'undefined')
+            config[line[0]] = line[1].trim();
+          }
+        return config;
+      }
+
+</script>
   </body>
 </html>

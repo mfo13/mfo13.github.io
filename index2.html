@@ -102,28 +102,28 @@
               <a href="javascript:void(0)" id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
               <div id="cubesettings" style="display: none;">
                 <hr>
-		            <div id="configfile">
-                  frame width: 
-                  <input type="number" id="width" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
-                  <br>
-                  frame height: 
-                  <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
-                  <br>
-		              <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config &#8631;</u></a>
+		            frame width: 
+                <input type="number" id="width" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                <br>
+                frame height: 
+                <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                <br>
+                <div id="configfile">
+		              <a href="javascript:void(0)" id="label:showconfig" onclick="reverse('showconfig');"><u>config file &#8631;</u></a>
                   <br>
 		              <div id='showconfig' style='display: none;'>
-		                <span style="font-size:12px;">AnimCube.txt</span>
-                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+		                <span style="font-size:12px;">AnimCube.txt (default settings)</span>
+                    <textarea id="config" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="setdefaultvalues(); replace_cube()"></textarea>
 		                <br>
                   </div>
 		            </div>
 		            bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
+                <input type='checkbox' id="bgcolordefault" checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', defaultvalues['bgcolor']); replace_cube()"/>default
                 <br>
                 cubecolor:  
                 <input type="color" id="cubecolor" value="#000000" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' id="cubecolordefault" checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', '#000000'); replace_cube()"/>default
+                <input type='checkbox' id="cubecolordefault" checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', defaultvalues['cubecolor']); replace_cube()"/>default
                 <br>
                 snap: 
                 <input type="radio" name="snap" id="snapon" onchange="replace_cube()"/>on 
@@ -562,16 +562,34 @@
       dopallet();
       dotable();
 
+      var defaultvalues = {
+        'bgcolor': '#808080',
+        'cubecolor': "#000000"
+      };
+
+      function setdefaultvalues(){
+        var configfile = parseConfigFile(getvalue('config'));
+        for (var chave in configfile) {
+          var value = '';
+          if (configfile.hasOwnProperty(chave)) {
+            if (chave.includes('color')) {value = '#'+configfile[chave]}
+              else {value = configfile[chave] }
+            setvalue(chave,value);
+            defaultvalues[chave]=value;
+          }
+        }
+      }
+
       function replace_cube() {
         var params='';
         var movetextint = parseInt(getvalue('movetext'),10);
-
+        
 	      var config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
 	                     
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
-        params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
-        params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
+        params += getvalue('bgcolor')!=defaultvalues['bgcolor'] ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        params += getvalue('cubecolor')!= defaultvalues['cubecolor'] ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += !checked('butbgcolordefault') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
         params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
         params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
@@ -1077,6 +1095,18 @@
   	    evt.currentTarget.style.background = "black";
 	      evt.currentTarget.style.color = "white";
       }
+
+      function parseConfigFile(text) {
+        var config = {};
+        var lines = text.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].split('=');
+          if (typeof line[1] != 'undefined')
+            config[line[0]] = line[1].trim();
+          }
+        return config;
+      }
+      
     </script>
   </body>
 </html>

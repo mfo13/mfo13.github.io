@@ -34,7 +34,7 @@
   </head>
 
   <style>
-    /*@import url(https://fonts.googleapis.com/css?family=Open+Sans);*/
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
     body {
       display: flex;
       justify-content: center;
@@ -385,7 +385,7 @@
                 </div>
                 <div id='showcolorscheme'>
                   colorscheme:
-                  <input id='colorschemedefault' type="checkbox" checked onchange="setdisplay('faceletsshow', this.checked ? 'block' : 'none'); updatecolor(); unfold_colorscheme(); replace_cube();"/>default
+                  <input id='colorschemedefault' type="checkbox" checked onchange="setdisplay('faceletsshow', this.checked ? 'block' : 'none'); dopallet(); unfold_colorscheme(); updatecolor(); replace_cube();"/>default
                   <br>
                   <input type="text" id="colorscheme" class="parameter" value="" data-default="" style="width:60px; display: none;"/>
                   <div id='setcolorscheme' style='display: none;'>
@@ -512,7 +512,7 @@
                         <tr>
                           <td style="width: 25%">
                           </td>
-                          <td id='SC_Dface' class='opencube'>
+                          <td id='SC_Dface' class='opencube' style="width: 25%">
                           </td>
                           <td colspan="2" style="vertical-align: middle; width: 50%">
                             Click on arrows to turn them.
@@ -537,7 +537,29 @@
               <div id="cube" style="width:400px; height:400px;"></div>
             
             <br>
-            <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+            <a href="javascript:void(0)" class="tabbtn" style="background-color:black; color:white; border:solid; border-color:black; border-width:1px;" onclick="openTab(event, 'htmlcode'); replace_cube();"><b>&nbsp;HTML code&nbsp;</b></a>
+	          &nbsp;
+	          <a href="javascript:void(0)" class="tabbtn" style="background-color:lightgray; color:gray; border-color:black; border:solid; border-width:1px;" onclick="openTab(event, 'animcubetxt'); replace_cube();"><b>&nbsp;new AnimCube.txt&nbsp;</b></a>
+	          <div id="htmlcode" class="tabs">
+              <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+		            <br>      
+                &lt;script src="AnimCube3.js">&lt;/script><br>
+		            <br>
+                &lt;div style="width:400px;height:400px;"><br>
+                &lt;script><br>
+                AnimCube3("")<br>
+                &lt;/script><br>
+		            &lt;/div><br>
+		            <br>
+	            </div>
+            </div>
+	          <div id="animcubetxt" class="tabs" style="display:none;">
+	            <div id="configtext" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+		            &nbsp;<br>
+		            &nbsp;<br>
+ 	            </div>
+            </div>
+            <!-- <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
                 <b>HTML code:</b><br>
                 <br>
                 &lt;script src="AnimCube3.js">&lt;/script><br>
@@ -548,7 +570,7 @@
                 &lt;/script><br>
 		            &lt;/div><br>
                 <br>
-            </div>
+            </div> -->
           </td>
         </tr>
         <tr>
@@ -578,7 +600,7 @@
       // function to handle the cube apparence and respective html text      
       function replace_cube() {
         let params='';
-        let saida = '<b>HTML code:</b><br><br>'
+        let saida = '<br>'
         let movetextint = parseInt(getvalue('movetext'),10);
         let configfile = parseConfigFile(getvalue('config'));
         let config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
@@ -647,7 +669,8 @@
         params += !checked('supercubeon') && currentdefaults['supercube']=='1' ? '&supercube=0' : '';
         params += checked('supercubeon') && getvalue('superfacelets')!=currentdefaults['superfacelets'] && !checked('superfaceletsdefault') ? '&superfacelets='+getvalue('superfacelets') : '';
         params += checked('supercubeon') && getvalue('scw')!=currentdefaults['scw'] ? '&scw='+getvalue('scw') : '';
-        params += checked('gabbacolorson') ? '&gabbacolors=1' : '';
+        params += checked('gabbacolorson') && currentdefaults['gabbacolors']!='1' ? '&gabbacolors=1' : '';
+        params += !checked('gabbacolorson') && currentdefaults['gabbacolors']!=='0' ? '&gabbacolors=0' : '';
         params += getvalue('scramble')!=currentdefaults['scramble'] ? '&scramble='+getvalue('scramble') : '';
         params += getvalue('randmoves')!=currentdefaults['randmoves'] ? '&randmoves='+getvalue('randmoves') : '';
         
@@ -673,9 +696,14 @@
             break;
         }
         
-        let configtext = '&nbsp;<br>&nbsp;<br>';
-	      if (!params=='' || getvalue('config')!='') {
-		      configtext = params.replace(/&/g,"<br>");
+        let configtext = '';
+	      if (params!='' || getvalue('config')!='') {
+		      let urlparams = new URLSearchParams(params);
+          let hashparams = Object.fromEntries(urlparams);
+          delete hashparams.config;
+          let final = {...configfile, ...hashparams};
+          configtext = Object.entries(final).map(([chave, valor]) => `${chave}=${valor}`);
+          configtext = configtext.join('<br>');
 		      configtext = configtext=='' ? '&nbsp;<br>&nbsp;<br>' : configtext;
 		      params = getvalue('config')!='' ? '&config=AnimCube.txt'+params : params;
 		      params = params.replace('&','');
@@ -688,6 +716,8 @@
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
 		              &lt;/div><br>');
+        
+        sethtml('configtext', '&nbsp;<br>'+configtext+'<br><br>');        
       }
 
       // function to set current default values from user config file
@@ -856,15 +886,13 @@
             }
           }
         }
-        console.log(sfacelets);
-        console.log(sfacelets.length);
         for (let f=0; f<6;f++) {
           table = '<table class="opencube" style="width: 100%">\
                 <tbody>';
           for (let i=0; i<num; i++) {
             table += '<tr>';
             for (let j=0; j<num; j++) {
-              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; text-align: center; background: grey; width: 33.33%"><a href="javascript:void(0)" id="'+faces[f]+'lin'+(i+1).toString()+'col'+(j+1).toString()+'" data-face="'+sfacelets[f*num*num+i*num+j]+'" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+(i+1).toString()+'col'+(j+1).toString()+'\'); replace_cube();">';
+              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; text-align: center; background: grey;"><a href="javascript:void(0)" id="'+faces[f]+'lin'+(i+1).toString()+'col'+(j+1).toString()+'" data-face="'+sfacelets[f*num*num+i*num+j]+'" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+(i+1).toString()+'col'+(j+1).toString()+'\'); replace_cube();">';
               switch (sfacelets[f*num*num+i*num+j]) {   
                 case '1': table +='⇒';
                 break;
@@ -1125,7 +1153,6 @@
           }
         }
         sethtml('superfacelets', sfacelets);
-        console.log(sfacelets);
       }
 
       // used to change the cube position in space (rotation)
@@ -1256,6 +1283,23 @@
         }
         return config;
        }
+
+       // intercalete between html and animcube.txt output tabs
+       function openTab(evt, tabname) {
+  	    var i;
+  	    var x = document.getElementsByClassName("tabs");
+  	    for (i = 0; i < x.length; i++) {
+     		  x[i].style.display = "none";
+  	    }
+  	    var activebtn = document.getElementsByClassName("tabbtn");
+  	    for (i = 0; i < x.length; i++) {
+    		  activebtn[i].style.background="lightgray";
+		      activebtn[i].style.color="gray";
+  	    }
+  	    document.getElementById(tabname).style.display = "block";
+  	    evt.currentTarget.style.background = "black";
+	      evt.currentTarget.style.color = "white";
+      }
 
 </script>
   </body>

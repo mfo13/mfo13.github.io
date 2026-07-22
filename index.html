@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  
     <!-- Set the correct path to favicon here -->
+    <!--your server -->
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- or CDN delivery -->
     <!-- <link rel="icon" href="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/sources/images/favicon.ico" type="image/x-icon"> -->
     <!-- -->
 	  
@@ -17,18 +19,20 @@
     <meta name="version" content="2.0">
 
     <!-- Set the correct paths to Animcube scripts here -->
+    <!-- your server -->
     <script src="scripts/AnimCube2.js"></script>
     <script src="scripts/AnimCube3.js"></script>
     <script src="scripts/AnimCube4.js"></script>
     <script src="scripts/AnimCube5.js"></script>
     <script src="scripts/AnimCube6.js"></script>
     <script src="scripts/AnimCube7.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube2.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube3.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube4.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube5.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube6.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube7.js"></script> -->
+    <!-- or CDN delivery -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cubing/AnimCubeJS@master/AnimCube7.min.js"></script> -->
     <!-- -->
 	  
   </head>
@@ -44,13 +48,12 @@
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      box-sizing: border-box;
     }
     .layout-grid {
       display: grid;
-      grid-template-columns: fit-content(400px) max-content;
+      grid-template-columns: fit-content(50%) max-content;
       gap: 20px;
-      justify-content: center;
+      justify-content: safe center;
       margin: 0 auto;
     }
     .tabs {
@@ -71,7 +74,6 @@
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
       }
-      /* Destrava tabelas aninhadas e divs internas do menu */
       .coluna-menu table, 
       .coluna-conteudo table {
         max-width: 100% !important;
@@ -146,11 +148,12 @@
 
   <body>
     <div class="container">
-      <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJS Configuration Tool</h1>
+      <h1>AnimCubeJS Configuration Tool</h1>
       <div class="layout-grid">
         <div class="coluna-menu">
           <b>Cube:</b>
-          <select id="cubesize" data-default="3" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="check('faceletsdefault', true); setdisplay('showcolorscheme','block'); unfold_cube(); unfold_supercube(); replace_cube();">
+          <select id="cubesize" data-default="3" style="font-size: 15px;"
+           onchange="check('faceletsdefault', true); setdisplay('showcolorscheme','block'); unfold_cube(); unfold_supercube(); replace_cube();">
             <option value="2">2x2x2</option>
             <option value="3" selected>3x3x3</option>
             <option value="4">4x4x4</option>
@@ -634,7 +637,7 @@
         let config = getvalue('config')!='' ? '&'+getvalue('config').replace(/\n/g,'&') : '';
                                 
         document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
-
+        
         params += getvalue('bgcolor').toLowerCase() != currentdefaults['bgcolor'].toLowerCase() && !checked('bgcolordefault') ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
         params += getvalue('cubecolor').toLowerCase() !=currentdefaults['cubecolor'].toLowerCase() && !checked('cubecolordefault') ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
         params += !checked('butbgcolordefault') && getvalue('butbgcolor').toLowerCase() != currentdefaults['butbgcolor'].toLowerCase() ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
@@ -705,22 +708,22 @@
         acjs_removeListeners['cube']();
         switch (getvalue('cubesize')) {
           case '2':
-            AnimCube2("id=cube"+config+params);
+            AnimCube2('id=cube'+config+params);
             break;
           case '3':
-            AnimCube3("id=cube"+config+params);
+            AnimCube3('id=cube'+config+params);
             break;
           case '4':
-            AnimCube4("id=cube"+config+params);
+            AnimCube4('id=cube'+config+params);
             break;
           case '5':
-            AnimCube5("id=cube"+config+params);
+            AnimCube5('id=cube'+config+params);
             break;
           case '6':
-            AnimCube6("id=cube"+config+params);
+            AnimCube6('id=cube'+config+params);
             break;
           case '7':
-            AnimCube7("id=cube"+config+params);
+            AnimCube7('id=cube'+config+params);
             break;
         }
         
@@ -892,8 +895,8 @@
             }
             table += '</tr>';
           }
-          table += "</tbody>\
-            </table>";
+          table += '</tbody>\
+            </table>';
           sethtml(faces[f], table);
         }
       }
@@ -934,8 +937,8 @@
             table += '</a></td>\
                     </tr>';
           }
-          table += "</tbody>\
-            </table>";
+          table += '</tbody>\
+            </table>';
           sethtml(faces[f], table);
         }
       }
@@ -1010,17 +1013,17 @@
         colors[23] = '#808080';  // * - gray
         if (checked('gabbacolorson')) {
           if (checked('supercubeon')) {
-            colors[11] = "#fdcf00"; // Y - yellow
-                colors[12] = "#fd4e0a"; // O - orange
-                colors[13] = "#93000d"; // R - red
-                colors[14] = "#00702d"; // G - green
-                colors[15] = "#00347a"; // B - blue
+            colors[11] = '#fdcf00'; // Y - yellow
+                colors[12] = '#fd4e0a'; // O - orange
+                colors[13] = '#93000d'; // R - red
+                colors[14] = '#00702d'; // G - green
+                colors[15] = '#00347a'; // B - blue
           } else {
-            colors[11] = "#ffd90a"; // 
-            colors[12] = "#ff4f0b"; // O
-            colors[13] = "#9e0b19"; // R
-            colors[14] = "#0b7d39"; // G
-            colors[15] = "#0b4186"; // B
+            colors[11] = '#ffd90a'; // 
+            colors[12] = '#ff4f0b'; // O
+            colors[13] = '#9e0b19'; // R
+            colors[14] = '#0b7d39'; // G
+            colors[15] = '#0b4186'; // B
           }
         }
         table = '<table style="padding: 5px; border-spacing: 5px;">\
@@ -1032,8 +1035,8 @@
               }
               table += '</tr>';
         }
-        table += "</tbody>\
-                  </table>";
+        table += '</tbody>\
+                </table>';
         sethtml('pallet', table);
       }
 
@@ -1291,10 +1294,10 @@
 
       // useful functions from animcubesj code
       function rgbToHex(r, g, b) {
-        return "#" + lpad(r.toString(16)) + lpad(g.toString(16)) + lpad(b.toString(16));
+        return '#' + lpad(r.toString(16)) + lpad(g.toString(16)) + lpad(b.toString(16));
       }
       function lpad(s) {
-        return (("00" + s).substring(s.length));
+        return (('00' + s).substring(s.length));
       }
 
       // adapted from animcubejs code, parses the config input
@@ -1317,16 +1320,16 @@
   	    var i;
   	    var x = document.getElementsByClassName("tabs");
   	    for (i = 0; i < x.length; i++) {
-     		  x[i].style.display = "none";
+     		  x[i].style.display = 'none';
   	    }
-  	    var activebtn = document.getElementsByClassName("tabbtn");
+  	    var activebtn = document.getElementsByClassName('tabbtn');
   	    for (i = 0; i < x.length; i++) {
-    		  activebtn[i].style.background="lightgray";
-		      activebtn[i].style.color="gray";
+    		  activebtn[i].style.background='lightgray';
+		      activebtn[i].style.color='gray';
   	    }
-  	    document.getElementById(tabname).style.display = "block";
-  	    evt.currentTarget.style.background = "black";
-	      evt.currentTarget.style.color = "white";
+  	    document.getElementById(tabname).style.display = 'block';
+  	    evt.currentTarget.style.background = 'black';
+	      evt.currentTarget.style.color = 'white';
       }
 
 </script>
